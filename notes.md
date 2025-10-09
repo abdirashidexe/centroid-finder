@@ -11,3 +11,4 @@ Euclidean distance: this means the distance between two colors using hex numbers
 
 
 ImageGroupFinder purpose: 
+This returns a list of a "group of pixels" which is divided by coordinates of arrays 
