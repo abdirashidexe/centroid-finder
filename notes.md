@@ -6,8 +6,11 @@ Works with "target color" and utilizes Euclidean distance to convert to binary a
 
 Utilizes the matrix at some point to traverse through the pixels
 
-
 Euclidean distance: this means the distance between two colors using hex numbers. 
+
+The 5th step that clarifies pixels are connected vertically and horizontally, not diagonally, my partner and I connected that to the dfs matrix concept. We will likely be using that during that step.
+
+
 
 
 ImageGroupFinder purpose: 
