@@ -19,3 +19,12 @@ This takes in a buffered image and we're meant to return coordinates that are ei
 
 Group.java purpose: 
 Gives us the coordinates of how the image sample input is structured.  
+
+This class also has a method that returns the centroid coordinates of location of the image
+
+EuclideanColorDistance purpose: 
+Intakes two colors in hex and calculates the distance between two hex RGB colors using a formula:
+sqrt((r1 - r2)^2 + (g1 - g2)^2 + (b1 - b2)^2)
+
+DistanceImage purpose:
+This explains what we use the distance for between the images for. 
