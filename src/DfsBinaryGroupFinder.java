@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DfsBinaryGroupFinder implements BinaryGroupFinder {
    /**
@@ -40,11 +42,18 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         if (image.length < 0 || image[0].length < 0) {
             throw new IllegalArgumentException("The array is invalid");
         }
-        List<Group> connectedPixels = new ArrayList<>();
 
-        // Assuming we're at (row:0, column:0), or (0,0), then:
-        // Valid: Y increases downward and X increases to the right.
-        // Therefore, invalid: Y goes up from 0, X goes left from 0
+        Set<Group> myVisited = new HashSet<>();
+
+        return findConnectedGroupsHelper(image, myVisited);
+    }
+
+    public List<Group> findConnectedGroupsHelper(int[][] image, Set<Group> visited)
+    {
+        List<Group> connectedPixels = new ArrayList<>();
+        
+        // implement code here
+
         return connectedPixels;
     }
     
