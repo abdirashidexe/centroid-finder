@@ -36,6 +36,10 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         if (image == null || image.length == 0) {
             throw new NullPointerException("the array or any of its subarrays are null");
         }
+
+        // Assuming we're at (row:0, column:0), or (0,0), then:
+        // Valid: Y increases downward and X increases to the right.
+        // Therefore, invalid: Y goes up from 0, X goes left from 0
         return null;
     }
     
