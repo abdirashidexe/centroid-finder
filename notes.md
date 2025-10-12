@@ -35,5 +35,8 @@ this class also returns an array that will determine whether it will be converte
 DfsBinaryGroupFinder purpose:
 This class has a method findConnectedGroups() that gets a binary image array and runs a dfs through it to find the connected groups of 1s. It will be using the Group record.
 
-location purpose: location of the image represented as an x y array andy y increases downward( for some reason) and x increases to the right
+location purpose:
+location of the image represented as an x y array andy y increases downward( for some reason) and x increases to the right
 
+Color distance finder purpose: 
+This is an interface for euclidean color distance and the purpose is to find and compute the distance between two colors 
