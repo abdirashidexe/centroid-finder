@@ -43,3 +43,6 @@ This is an interface for euclidean color distance and the purpose is to find and
 
 BinaryGroupFinder purpose:
 This is an interface for dfsBinaryGroupFinder and the purpose is for it to be used and implemented by other classes to return a list of groups of connected pixels, specifically in descending order (i think the groups with the least conneceted pixels would be at the bottom of the list).
+
+BinarizingImageGroupFinder purpose:
+This class uses a binarized image to get the connected groups of white pixels (which would be represented as 1) it has a method that is meant to convert the input image as a binarized image then sorts it as a list in groups in descending order 
