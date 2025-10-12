@@ -40,3 +40,6 @@ location of the image represented as an x y array andy y increases downward( for
 
 Color distance finder purpose: 
 This is an interface for euclidean color distance and the purpose is to find and compute the distance between two colors 
+
+BinaryGroupFinder purpose:
+This is an interface for dfsBinaryGroupFinder and the purpose is for it to be used and implemented by other classes to return a list of groups of connected pixels, specifically in descending order (i think the groups with the least conneceted pixels would be at the bottom of the list).
