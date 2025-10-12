@@ -27,4 +27,7 @@ Intakes two colors in hex and calculates the distance between two hex RGB colors
 sqrt((r1 - r2)^2 + (g1 - g2)^2 + (b1 - b2)^2)
 
 DistanceImage purpose:
-This explains what we use the distance for between the images for. 
+This explains what we use the distance for between the images for. It obtains the distance between the target and the pixels using the euclidean 
+distance formula. Target (the notepads/salamander) pixels(total image)
+
+this class also returns an array that will determine whether it will be converted to black or white. 
