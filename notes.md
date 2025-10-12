@@ -31,3 +31,6 @@ This explains what we use the distance for between the images for. It obtains th
 distance formula. Target (the notepads/salamander) pixels(total image)
 
 this class also returns an array that will determine whether it will be converted to black or white. 
+
+DfsBinaryGroupFinder purpose:
+This class has a method findConnectedGroups() that gets a binary image array and runs a dfs through it to find the connected groups of 1s. It will be using the Group record.
