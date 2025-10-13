@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -50,7 +51,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
     */
     @Override
     public List<Group> findConnectedGroups(int[][] image) {    
-        int[][] coordinates = new int[image.length * image[0].length][2];
+        HashMap<Integer, int[][]> coordinates = new HashMap<>();
         int group = 0;
         if (image == null || image.length == 0) {
             throw new NullPointerException("the array or any of its subarrays are null");
@@ -62,7 +63,8 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         int rows = image.length;
         int cols = image[0].length;
         boolean[][] visited = new boolean[rows][cols];
-        List<Group> connectedPixels = new ArrayList<>();
+        List<Group> connectedGroups = new ArrayList<>();
+        int[][]connectedPixels = new int[rows][cols];
 
         for (int r = 0; r < rows; r++)
         {
@@ -71,13 +73,13 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
                 if (image[r][c] == 1 && !visited[r][c])
                 {
                     // 1 is found, check neighbors for other 1's
-                    coordinates = returnGroups(image, visited, rows, cols,coordinates, group);
+                    coordinates.put(group++, returnGroups(image, visited, rows, cols, connectedPixels));
                     // Group myGroup = returnGroups(image, visited, rows, cols);
                 }
             }
         }
 
-        return connectedPixels;
+        return connectedGroups;
     }
     /**
      * Group method is supposed to get all the coordinates of the group that we want and return them after getting the 
@@ -92,20 +94,21 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
      * 
      * (Study different dfs code to find how to traverse )
      */
-    public static int[][] returnGroups(int[][] image, boolean[][] visited, int r, int c, int[][] coordinates, int group)
+    public static int[][] returnGroups(int[][] image, boolean[][] visited, int r, int c, int[][]connectedPixels)
     {
+        
         if(r < 0 || c < 0 ||r > image.length || c > image[0].length) return null;
 
-        
         visited[r][c] = true;
+        connectedPixels[r][c] = 1;
         
-        returnGroups(image, visited, r, c + 1, coordinates, group);    // right
-        returnGroups(image, visited, r, c - 1, coordinates, group);    // left
-        returnGroups(image, visited, r - 1, c, coordinates, group);    // up
-        returnGroups(image, visited, r + 1, c, coordinates, group);    // down
+        returnGroups(image, visited, r, c + 1, connectedPixels);    // right
+        returnGroups(image, visited, r, c - 1, connectedPixels);    // left
+        returnGroups(image, visited, r - 1, c, connectedPixels);    // up
+        returnGroups(image, visited, r + 1, c, connectedPixels);    // down
 
         
-        return coordinates;
+        return connectedPixels;
     }
     
 }
