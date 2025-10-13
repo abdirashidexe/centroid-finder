@@ -51,8 +51,6 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
     */
     @Override
     public List<Group> findConnectedGroups(int[][] image) {    
-        HashMap<Integer, int[][]> coordinates = new HashMap<>();
-        int group = 0;
         if (image == null || image.length == 0) {
             throw new NullPointerException("the array or any of its subarrays are null");
         }
@@ -63,8 +61,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         int rows = image.length;
         int cols = image[0].length;
         boolean[][] visited = new boolean[rows][cols];
-        List<Group> connectedGroups = new ArrayList<>();
-        int[][]connectedPixels = new int[rows][cols];
+        List<int[]> connectedPixels = new ArrayList<>();
 
         for (int r = 0; r < rows; r++)
         {
@@ -75,6 +72,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
                     // 1 is found, check neighbors for other 1's
                     //coordinates.put(group++, returnGroups(image, visited, rows, cols, connectedPixels));
                     // Group myGroup = returnGroups(image, visited, rows, cols);
+                    connectedPixels.add(returnGroups(image, visited, r, c, connectedPixels));
                 }
             }
         }
@@ -96,13 +94,13 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
      * 
      * (Study different dfs code to find how to traverse )
      */
-    public static int[][] returnGroups(int[][] image, boolean[][] visited, int r, int c, int[][]connectedPixels)
+    public static int[] returnGroups(int[][] image, boolean[][] visited, int r, int c, List<int[]>connectedPixels)
     {
-        
+        int[] coordinates = {r,c};
         if(r < 0 || c < 0 ||r > image.length || c > image[0].length) return null;
 
         visited[r][c] = true;
-        connectedPixels[r][c] = 1;
+        connectedPixels.add(new int[]{r,c});
         
         returnGroups(image, visited, r, c + 1, connectedPixels);    // right
         returnGroups(image, visited, r, c - 1, connectedPixels);    // left
@@ -110,7 +108,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         returnGroups(image, visited, r + 1, c, connectedPixels);    // down
 
         
-        return connectedPixels;
+        return coordinates;
     }
     
 }
