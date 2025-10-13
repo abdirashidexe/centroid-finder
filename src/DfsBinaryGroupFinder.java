@@ -77,7 +77,19 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
 
         return connectedPixels;
     }
-
+    /**
+     * Group method is supposed to get all the coordinates of the group that we want and return them after getting the 
+     * centroid and size. 
+     * 
+     * -------------------------------------------GOALS------------------------------------------------
+     * Find a way to obtain the size and centroid 
+     * 
+     * Find a way to traverse through the pixels and get only the connected connected pixels 
+     * ------------------------------------------------------------------------------------------------
+     * (Maybe using another helper method that will take in the coordinates given and convert the centroid)
+     * 
+     * (Study different dfs code to find how to traverse )
+     */
     public static Group returnGroups(int[][] image, boolean[][] visited, int r, int c)
     {
         
