@@ -71,12 +71,15 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
 
     public static void findConnectedGroupsHelper(int[][] image, boolean[][] visited, int r, int c)
     {
+        if(r < 0 || c < 0 ||r > image.length || c > image[0].length) return;
+
+        
         visited[r][c] = true;
         
-        findConnectedGroupsHelper(image, visited, r, c + 1);    // up
-        findConnectedGroupsHelper(image, visited, r, c - 1);    // down
-        findConnectedGroupsHelper(image, visited, r - 1, c);    // left
-        findConnectedGroupsHelper(image, visited, r + 1, c);    // right
+        findConnectedGroupsHelper(image, visited, r, c + 1);    // right
+        findConnectedGroupsHelper(image, visited, r, c - 1);    // left
+        findConnectedGroupsHelper(image, visited, r - 1, c);    // up
+        findConnectedGroupsHelper(image, visited, r + 1, c);    // down
     }
     
 }
