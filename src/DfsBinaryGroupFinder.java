@@ -73,7 +73,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
                 if (image[r][c] == 1 && !visited[r][c])
                 {
                     // 1 is found, check neighbors for other 1's
-                    coordinates.put(group++, returnGroups(image, visited, rows, cols, connectedPixels));
+                    //coordinates.put(group++, returnGroups(image, visited, rows, cols, connectedPixels));
                     // Group myGroup = returnGroups(image, visited, rows, cols);
                 }
             }

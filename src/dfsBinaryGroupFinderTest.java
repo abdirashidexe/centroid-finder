@@ -11,7 +11,16 @@ public class dfsBinaryGroupFinderTest {
             {0, 0, 0}
         };
         DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
-        int result = finder.findConnectedGroups(image).size()-1;
+        int result = 3;
         assertEquals(result, finder.findConnectedGroups(image));
+    }
+
+        @Test
+    void testDFScoordinates() {
+        int[][] image = {
+            {1, 1, 0},
+            {1, 0, 0},
+            {0, 0, 0}
+        };
     }
 }
