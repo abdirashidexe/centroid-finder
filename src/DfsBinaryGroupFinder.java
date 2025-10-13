@@ -49,9 +49,9 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
             throw new IllegalArgumentException("The array is invalid");
         }
 
-        boolean[][] visited;
         int rows = image.length;
         int cols = image[0].length;
+        boolean[][] visited = new boolean[rows][cols];
 
         for (int r = 0; r < rows; r++)
         {
@@ -59,6 +59,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
             {
                 if (image[r][c] == 1 && !visited[r][c])
                 {
+                    // 1 is found, check neighbors for other 1's
                     findConnectedGroupsHelper(image, visited, rows, cols);
                 }
             }
@@ -67,7 +68,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         return null;
     }
 
-    public List<Group> findConnectedGroupsHelper(int[][] image, Set<Integer> visited, int rows, int cols)
+    public List<Group> findConnectedGroupsHelper(int[][] image, boolean[][] visited, int rows, int cols)
     {
         List<Group> connectedPixels = new ArrayList<>();
         
