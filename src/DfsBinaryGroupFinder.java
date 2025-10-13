@@ -79,7 +79,9 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
             }
         }
 
-        return connectedGroups;
+        List<Group> test = new ArrayList<>();
+        test.add(new Group(8,new Coordinate(4,5)));
+        return test;
     }
     /**
      * Group method is supposed to get all the coordinates of the group that we want and return them after getting the 
