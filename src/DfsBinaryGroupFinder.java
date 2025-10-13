@@ -43,12 +43,25 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
             throw new IllegalArgumentException("The array is invalid");
         }
 
-        Set<Group> myVisited = new HashSet<>();
+        Set<Integer> myVisited = new HashSet<>();
+        int rows = image.length;
+        int cols = image[0].length;
 
-        return findConnectedGroupsHelper(image, myVisited);
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < cols; c++)
+            {
+                if (image[r][c] == 1 && !myVisited.contains(image[r][c]))
+                {
+                    findConnectedGroupsHelper(image, myVisited, rows, cols);
+                }
+            }
+        }
+
+        return findConnectedGroupsHelper(image, myVisited, rows, cols);
     }
 
-    public List<Group> findConnectedGroupsHelper(int[][] image, Set<Group> visited)
+    public List<Group> findConnectedGroupsHelper(int[][] image, Set<Integer> visited, int rows, int cols)
     {
         List<Group> connectedPixels = new ArrayList<>();
         
