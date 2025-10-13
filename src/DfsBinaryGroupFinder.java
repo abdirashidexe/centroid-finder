@@ -30,6 +30,12 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
     * (size first, then x, then y). That is, the largest group will be first, the 
     * smallest group will be last, and ties will be broken first by descending 
     * y value, then descending x value.
+
+    [0,1,0,0],
+    [1,1,0,0],
+    [0,0,1,0],
+    [0,0,0,1]
+    
     * 
     * @param image a rectangular 2D array containing only 1s and 0s
     * @return the found groups of connected pixels in descending order
@@ -58,7 +64,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
             }
         }
 
-        return findConnectedGroupsHelper(image, myVisited, rows, cols);
+        return null;
     }
 
     public List<Group> findConnectedGroupsHelper(int[][] image, Set<Integer> visited, int rows, int cols)
