@@ -49,7 +49,9 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
     * @return the found groups of connected pixels in descending order
     */
     @Override
-    public List<Group> findConnectedGroups(int[][] image) {        
+    public List<Group> findConnectedGroups(int[][] image) {    
+        int[][] coordinates = new int[image.length * image[0].length][2];
+        int group = 0;
         if (image == null || image.length == 0) {
             throw new NullPointerException("the array or any of its subarrays are null");
         }
@@ -69,7 +71,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
                 if (image[r][c] == 1 && !visited[r][c])
                 {
                     // 1 is found, check neighbors for other 1's
-                    connectedPixels.add(returnGroups(image, visited, rows, cols));
+                    coordinates = returnGroups(image, visited, rows, cols,coordinates, group);
                     // Group myGroup = returnGroups(image, visited, rows, cols);
                 }
             }
@@ -90,21 +92,20 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
      * 
      * (Study different dfs code to find how to traverse )
      */
-    public static Group returnGroups(int[][] image, boolean[][] visited, int r, int c)
+    public static int[][] returnGroups(int[][] image, boolean[][] visited, int r, int c, int[][] coordinates, int group)
     {
-        
         if(r < 0 || c < 0 ||r > image.length || c > image[0].length) return null;
 
         
         visited[r][c] = true;
         
-        returnGroups(image, visited, r, c + 1);    // right
-        returnGroups(image, visited, r, c - 1);    // left
-        returnGroups(image, visited, r - 1, c);    // up
-        returnGroups(image, visited, r + 1, c);    // down
+        returnGroups(image, visited, r, c + 1, coordinates, group);    // right
+        returnGroups(image, visited, r, c - 1, coordinates, group);    // left
+        returnGroups(image, visited, r - 1, c, coordinates, group);    // up
+        returnGroups(image, visited, r + 1, c, coordinates, group);    // down
 
         
-        return null;
+        return coordinates;
     }
     
 }
