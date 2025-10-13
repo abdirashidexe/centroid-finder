@@ -35,7 +35,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
     [1,1,0,0],
     [0,0,1,0],
     [0,0,0,1]
-    
+
     * 
     * @param image a rectangular 2D array containing only 1s and 0s
     * @return the found groups of connected pixels in descending order
@@ -49,7 +49,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
             throw new IllegalArgumentException("The array is invalid");
         }
 
-        Set<Integer> myVisited = new HashSet<>();
+        boolean[][] visited;
         int rows = image.length;
         int cols = image[0].length;
 
@@ -57,9 +57,9 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         {
             for (int c = 0; c < cols; c++)
             {
-                if (image[r][c] == 1 && !myVisited.contains(image[r][c]))
+                if (image[r][c] == 1 && !visited[r][c])
                 {
-                    findConnectedGroupsHelper(image, myVisited, rows, cols);
+                    findConnectedGroupsHelper(image, visited, rows, cols);
                 }
             }
         }
