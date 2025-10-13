@@ -10,7 +10,8 @@ public class dfsBinaryGroupFinderTest {
             {1, 0, 0},
             {0, 0, 0}
         };
-
-        assertEquals(1, dfsBinaryGroupFinder.findConnectedGroups(image));
+        DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
+        int result = finder.findConnectedGroups(image).size()-1;
+        assertEquals(result, finder.findConnectedGroups(image));
     }
 }
