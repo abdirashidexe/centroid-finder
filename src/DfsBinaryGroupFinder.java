@@ -52,6 +52,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         int rows = image.length;
         int cols = image[0].length;
         boolean[][] visited = new boolean[rows][cols];
+        List<Group> connectedPixels = new ArrayList<>();
 
         for (int r = 0; r < rows; r++)
         {
@@ -68,13 +69,14 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         return null;
     }
 
-    public List<Group> findConnectedGroupsHelper(int[][] image, boolean[][] visited, int rows, int cols)
+    public static void findConnectedGroupsHelper(int[][] image, boolean[][] visited, int r, int c)
     {
-        List<Group> connectedPixels = new ArrayList<>();
+        visited[r][c] = true;
         
-        // implement code here
-
-        return connectedPixels;
+        findConnectedGroupsHelper(image, visited, r, c + 1);    // up
+        findConnectedGroupsHelper(image, visited, r, c - 1);    // down
+        findConnectedGroupsHelper(image, visited, r - 1, c);    // left
+        findConnectedGroupsHelper(image, visited, r + 1, c);    // right
     }
     
 }
