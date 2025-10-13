@@ -69,8 +69,8 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
                 if (image[r][c] == 1 && !visited[r][c])
                 {
                     // 1 is found, check neighbors for other 1's
-                    findConnectedGroupsHelper(image, visited, rows, cols);
-                    // Group myGroup = findConnectedGroupsHelper(image, visited, rows, cols);
+                    connectedPixels.add(returnGroups(image, visited, rows, cols));
+                    // Group myGroup = returnGroups(image, visited, rows, cols);
                 }
             }
         }
@@ -78,18 +78,21 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         return connectedPixels;
     }
 
-    public static void findConnectedGroupsHelper(int[][] image, boolean[][] visited, int r, int c)
+    public static Group returnGroups(int[][] image, boolean[][] visited, int r, int c)
     {
-        if(r < 0 || c < 0 ||r > image.length || c > image[0].length) return;
+        
+        if(r < 0 || c < 0 ||r > image.length || c > image[0].length) return null;
 
         
         visited[r][c] = true;
         
-        findConnectedGroupsHelper(image, visited, r, c + 1);    // right
-        findConnectedGroupsHelper(image, visited, r, c - 1);    // left
-        findConnectedGroupsHelper(image, visited, r - 1, c);    // up
-        findConnectedGroupsHelper(image, visited, r + 1, c);    // down
+        returnGroups(image, visited, r, c + 1);    // right
+        returnGroups(image, visited, r, c - 1);    // left
+        returnGroups(image, visited, r - 1, c);    // up
+        returnGroups(image, visited, r + 1, c);    // down
+
         
+        return null;
     }
     
 }
