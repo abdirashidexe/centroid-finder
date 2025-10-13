@@ -36,6 +36,14 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
     [0,0,1,0],
     [0,0,0,1]
 
+    for the top left group: 
+
+    row:0,col:1
+    row:1,col:0
+    row:1,col:1
+
+    so x in this groups coordinate(x,y) is: 0 + 1 + 1 / 3 (sum of all x coor. / # of pixels in group)
+
     * 
     * @param image a rectangular 2D array containing only 1s and 0s
     * @return the found groups of connected pixels in descending order
@@ -62,11 +70,12 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
                 {
                     // 1 is found, check neighbors for other 1's
                     findConnectedGroupsHelper(image, visited, rows, cols);
+                    // Group myGroup = findConnectedGroupsHelper(image, visited, rows, cols);
                 }
             }
         }
 
-        return null;
+        return connectedPixels;
     }
 
     public static void findConnectedGroupsHelper(int[][] image, boolean[][] visited, int r, int c)
@@ -80,6 +89,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         findConnectedGroupsHelper(image, visited, r, c - 1);    // left
         findConnectedGroupsHelper(image, visited, r - 1, c);    // up
         findConnectedGroupsHelper(image, visited, r + 1, c);    // down
+        
     }
     
 }
