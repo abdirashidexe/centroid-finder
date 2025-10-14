@@ -72,7 +72,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
             {
                 if (image[r][c] == 1 && !visited[r][c])     //found an unvisited pixel that is part of a group
                 {
-                    coordinateMap.put(groupIndex ,returnGroups(image, visited, r, c));      //get all the coordinates of the group and put them in the map
+                    coordinateMap.put(groupIndex ,returnGroupList(image, visited, r, c));      //get all the coordinates of the group and put them in the map
                     groupIndex++;       //increment the group index for the next group
                 }
             }
@@ -96,23 +96,20 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
      * 
      * (Study different dfs code to find how to traverse )
      */
-    public static List<int[]> returnGroups(int[][] image, boolean[][] visited, int r, int c)
+    public static List<int[]> returnGroupList(int[][] image, boolean[][] visited, int r, int c)
     {
         List<int[]> connectedPixels = new ArrayList<>();       //list to hold the coordinates of the connected pixels in the group
-        if(r < 0 || c < 0 ||r > image.length || c > image[0].length) return null;
+        if(r < 0 || c < 0 ||r > image.length || c > image[0].length || image[r][c] != 0) return null;
 
         visited[r][c] = true;   //mark the pixel as visited
-        connectedPixels.add(new int[]{0,0});    //add the coordinate to the list
-        connectedPixels.add(new int[]{0,1});
-        connectedPixels.add(new int[]{1,0});
-        
-        // returnGroups(image, visited, r, c + 1);    // right
-        // returnGroups(image, visited, r, c - 1);    // left
-        // returnGroups(image, visited, r - 1, c);    // up
-        // returnGroups(image, visited, r + 1, c);    // down
 
+        connectedPixels.add(new int[]{r,c});    //add the coordinate to the list
+        
+        returnGroupList(image, visited, r, c + 1);    // right
+        returnGroupList(image, visited, r, c - 1);    // left
+        returnGroupList(image, visited, r - 1, c);    // up
+        returnGroupList(image, visited, r + 1, c);    // down
         
         return connectedPixels;     //return the list of coordinates of the connected pixels in the group
     }
-    
 }

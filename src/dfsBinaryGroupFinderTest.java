@@ -32,7 +32,7 @@ public class dfsBinaryGroupFinderTest {
         //DfsBinaryGroupFinder dfs = new DfsBinaryGroupFinder();
 
         // Run DFS starting at top-left (0, 0)
-        List<int[]> result = DfsBinaryGroupFinder.returnGroups(image, visited, 0, 0);
+        List<int[]> result = DfsBinaryGroupFinder.returnGroupList(image, visited, 0, 0);
 
         // Expected coordinates of connected 1’s
         List<int[]> expectedCoords = List.of(
