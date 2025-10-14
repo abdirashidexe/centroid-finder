@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class DfsBinaryGroupFinder implements BinaryGroupFinder {
    /**
@@ -51,28 +49,31 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
     */
     @Override
     public List<Group> findConnectedGroups(int[][] image) {    
-        if (image == null || image.length == 0) {
+        if (image == null || image.length == 0) {       //base case
             throw new NullPointerException("the array or any of its subarrays are null");
         }
-        if (image.length < 0 || image[0].length < 0) {
+        if (image.length < 0 || image[0].length < 0) {      //base case
             throw new IllegalArgumentException("The array is invalid");
         }
 
+        int groupIndex = 0;     //keep track of the group map index 
         int rows = image.length;
         int cols = image[0].length;
-        boolean[][] visited = new boolean[rows][cols];
-        List<int[]> connectedPixels = new ArrayList<>();
+        boolean[][] visited = new boolean[rows][cols];      //keep track of visited pixels
+        
+        //map to hold the coordinates of each group 
+        //KEY:  key will be the group index
+        //VAL:  value will be the list of coordinates for that group in the form of an array
+        HashMap<Integer, List<int[]>> coordinateMap = new HashMap<>();      
 
         for (int r = 0; r < rows; r++)
         {
             for (int c = 0; c < cols; c++)
             {
-                if (image[r][c] == 1 && !visited[r][c])
+                if (image[r][c] == 1 && !visited[r][c])     //found an unvisited pixel that is part of a group
                 {
-                    // 1 is found, check neighbors for other 1's
-                    //coordinates.put(group++, returnGroups(image, visited, rows, cols, connectedPixels));
-                    // Group myGroup = returnGroups(image, visited, rows, cols);
-                    connectedPixels.add(returnGroups(image, visited, r, c, connectedPixels));
+                    coordinateMap.put(groupIndex ,returnGroups(image, visited, r, c));      //get all the coordinates of the group and put them in the map
+                    groupIndex++;       //increment the group index for the next group
                 }
             }
         }
@@ -94,21 +95,21 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
      * 
      * (Study different dfs code to find how to traverse )
      */
-    public static int[] returnGroups(int[][] image, boolean[][] visited, int r, int c, List<int[]>connectedPixels)
+    public static List<int[]> returnGroups(int[][] image, boolean[][] visited, int r, int c)
     {
-        int[] coordinates = {r,c};
+        List<int[]> connectedPixels = new ArrayList<>();       //list to hold the coordinates of the connected pixels in the group
         if(r < 0 || c < 0 ||r > image.length || c > image[0].length) return null;
 
-        visited[r][c] = true;
-        connectedPixels.add(new int[]{r,c});
+        visited[r][c] = true;   //mark the pixel as visited
+        connectedPixels.add(new int[]{r,c});    //add the coordinate to the list
         
-        returnGroups(image, visited, r, c + 1, connectedPixels);    // right
-        returnGroups(image, visited, r, c - 1, connectedPixels);    // left
-        returnGroups(image, visited, r - 1, c, connectedPixels);    // up
-        returnGroups(image, visited, r + 1, c, connectedPixels);    // down
+        returnGroups(image, visited, r, c + 1);    // right
+        returnGroups(image, visited, r, c - 1);    // left
+        returnGroups(image, visited, r - 1, c);    // up
+        returnGroups(image, visited, r + 1, c);    // down
 
         
-        return coordinates;
+        return connectedPixels;     //return the list of coordinates of the connected pixels in the group
     }
     
 }
