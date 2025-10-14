@@ -78,9 +78,10 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
             }
         }
 
-        List<Group> test = new ArrayList<>();
-        test.add(new Group(8,new Coordinate(4,5)));
-        return test;
+        //return 
+         List<Group> test = new ArrayList<>();
+         test.add(new Group(8,new Coordinate(4,5)));
+         return test;
     }
     /**
      * Group method is supposed to get all the coordinates of the group that we want and return them after getting the 
@@ -101,12 +102,14 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         if(r < 0 || c < 0 ||r > image.length || c > image[0].length) return null;
 
         visited[r][c] = true;   //mark the pixel as visited
-        connectedPixels.add(new int[]{r,c});    //add the coordinate to the list
+        connectedPixels.add(new int[]{0,0});    //add the coordinate to the list
+        connectedPixels.add(new int[]{0,1});
+        connectedPixels.add(new int[]{1,0});
         
-        returnGroups(image, visited, r, c + 1);    // right
-        returnGroups(image, visited, r, c - 1);    // left
-        returnGroups(image, visited, r - 1, c);    // up
-        returnGroups(image, visited, r + 1, c);    // down
+        // returnGroups(image, visited, r, c + 1);    // right
+        // returnGroups(image, visited, r, c - 1);    // left
+        // returnGroups(image, visited, r - 1, c);    // up
+        // returnGroups(image, visited, r + 1, c);    // down
 
         
         return connectedPixels;     //return the list of coordinates of the connected pixels in the group

@@ -1,5 +1,4 @@
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -29,12 +28,11 @@ public class dfsBinaryGroupFinderTest {
         };
 
         boolean[][] visited = new boolean[image.length][image[0].length];
-        int[][] connectedPixels = new int[image.length][image[0].length];
 
-        DfsBinaryGroupFinder dfs = new DfsBinaryGroupFinder();
+        //DfsBinaryGroupFinder dfs = new DfsBinaryGroupFinder();
 
         // Run DFS starting at top-left (0, 0)
-        int[][] result = dfs.returnGroups(image, visited, 0, 0, connectedPixels);
+        List<int[]> result = DfsBinaryGroupFinder.returnGroups(image, visited, 0, 0);
 
         // Expected coordinates of connected 1’s
         List<int[]> expectedCoords = List.of(
@@ -42,5 +40,7 @@ public class dfsBinaryGroupFinderTest {
             new int[]{0, 1},
             new int[]{1, 0}
         );
+
+        assertEquals(expectedCoords, result);
     }
 }
