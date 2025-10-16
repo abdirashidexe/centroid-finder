@@ -62,4 +62,21 @@ public class dfsBinaryGroupFinderTest {
         assertEquals(1, result.size());
         assertArrayEquals(new int[]{0, 0}, result.get(0));
     }
+
+    @Test
+    public void testReturnGroupList_multipleConnectedPixel() {
+        int[][] image = {
+            {1, 1, 0},
+            {0, 0, 0}
+        };
+        boolean[][] visited = new boolean[2][2];
+        List<int[]> newConnectedPixels = new  ArrayList<>();
+
+        List<int[]> result = DfsBinaryGroupFinder.returnGroupList(image, visited, 0, 0, newConnectedPixels);
+
+        // ✅ Assertions
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertArrayEquals(new int[]{0, 0}, result.get(0));
+    }
 }

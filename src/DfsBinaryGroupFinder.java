@@ -110,9 +110,9 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         newConnectedPixels.add(new int[]{r,c});
         
         returnGroupList(image, visited, r - 1, c, newConnectedPixels);    // up
+        returnGroupList(image, visited, r, c + 1, newConnectedPixels);    // right
         returnGroupList(image, visited, r + 1, c, newConnectedPixels);    // down
         returnGroupList(image, visited, r, c - 1, newConnectedPixels);    // left
-        returnGroupList(image, visited, r, c + 1, newConnectedPixels);    // right
         
         return newConnectedPixels;
     }
