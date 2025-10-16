@@ -24,7 +24,21 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
     * Similarly, the y coordinate of the centroid is the sum of all the y
     * coordinates of the pixels in the group divided by the number of pixels in that group.
     * The division should be done as INTEGER DIVISION.
-    *
+    * The groups are sorted in DESCENDING order according to Group's compareTo method.
+
+    [0,1,0,0],
+    [1,1,0,0],
+    [0,0,1,0],
+    [0,0,0,1]
+
+    for the top left group: 
+
+    row:0,col:1
+    row:1,col:0
+    row:1,col:1
+
+    so x in this groups coordinate(x,y) is: 0 + 1 + 1 / 3 (sum of all x coor. / # of pixels in group)
+
     * 
     * @param image a rectangular 2D array containing only 1s and 0s
     * @return the found groups of connected pixels in descending order
