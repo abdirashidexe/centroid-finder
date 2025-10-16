@@ -25,7 +25,6 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
     * coordinates of the pixels in the group divided by the number of pixels in that group.
     * The division should be done as INTEGER DIVISION.
     *
-    * The groups are sorted in DESCENDING order according to Group's compareTo method.
     * 
     * @param image a rectangular 2D array containing only 1s and 0s
     * @return the found groups of connected pixels in descending order
