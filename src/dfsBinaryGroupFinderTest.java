@@ -96,6 +96,8 @@ public class dfsBinaryGroupFinderTest {
         assertNotNull(result);
         assertEquals(3, result.size());
         assertArrayEquals(new int[]{0, 0}, result.get(0));
+        assertArrayEquals(new int[]{0, 1}, result.get(1));
+        assertArrayEquals(new int[]{1, 0}, result.get(2));
     }
 
     @Test
@@ -113,8 +115,8 @@ public class dfsBinaryGroupFinderTest {
 
         // ✅ Assertions
         assertNotNull(result);
-        //assertEquals(3, result.size());
-        assertArrayEquals(new int[]{0, 1}, result.get(0));
+        assertEquals(3, result.size());
+        //assertArrayEquals(new int[]{0, 1}, result.get(0));
     }
     // ADDING FROM HERE
     @Test
