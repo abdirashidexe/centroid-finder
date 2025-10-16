@@ -86,7 +86,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
     /* [0,1,0,0],
        [1,1,0,0],
        [0,0,1,0],
-       [0,0,0,1] */
+       [0,0,1,1] */
 
     /**
      * Group method is supposed to get all the coordinates of the group that we want and return them after getting the 
@@ -115,5 +115,29 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         returnGroupList(image, visited, r, c - 1, newConnectedPixels);    // left
         
         return newConnectedPixels;
+    }
+
+    public static int[] calculateCentroid(List<int[]> groupList) {
+
+        int xTotals = 0;
+        int yTotals = 0;
+        int numOfPixelsInGroup = groupList.size(); // error here: testing returning 0
+
+        // add x coordinates
+        for (int[] coordinates : groupList) {
+            xTotals += coordinates[0];
+        }
+
+        // add y coordinates
+        for (int[] coordinates : groupList) {
+            yTotals += coordinates[1];
+        }
+
+        int centroidX = xTotals/numOfPixelsInGroup;
+        int centroidY = yTotals/numOfPixelsInGroup;
+
+        int[] centroid = {centroidX,centroidY};
+
+        return centroid;
     }
 }

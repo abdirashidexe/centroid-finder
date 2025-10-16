@@ -97,4 +97,23 @@ public class dfsBinaryGroupFinderTest {
         assertEquals(2, result.size());
         assertArrayEquals(new int[]{0, 0}, result.get(0));
     }
+    // ADDING FROM HERE
+    @Test
+    public void testCalculateCentroid_SmallImage() {
+        int[][] image = {
+            {0,1,0,0}, // [0,1] [1,0] [1,1] --> X totals: 2, Y totals: 2, num of pixels:3 --> centroid[2/3, 2/3]
+            {1,1,0,0},
+            {0,0,1,0},
+            {0,0,1,1}
+        };
+
+        boolean[][] visited = new boolean[image.length][image[0].length];
+        List<int[]> newConnectedPixels = new  ArrayList<>();
+
+        List<int[]> list = DfsBinaryGroupFinder.returnGroupList(image, visited, 0, 0, newConnectedPixels);
+
+        int[] resultCentroid = DfsBinaryGroupFinder.calculateCentroid(list);
+
+        assertEquals(new int[] {0,0}, resultCentroid);
+    }
 }
