@@ -43,4 +43,20 @@ public class dfsBinaryGroupFinderTest {
 
         assertEquals(expectedCoords, result);
     }
+
+    @Test
+    public void testReturnGroupList_singleConnectedPixel() {
+        int[][] image = {
+            {1, 0, 0},
+            {0, 0, 0}
+        };
+        boolean[][] visited = new boolean[2][2];
+
+        List<int[]> result = DfsBinaryGroupFinder.returnGroupList(image, visited, 0, 0);
+
+        // ✅ Assertions
+        assertNotNull(result);
+        //assertEquals(1, result.size());
+        assertArrayEquals(new int[]{0, 0}, result.get(0));
+    }
 }

@@ -32,17 +32,17 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
     */
     @Override
     public List<Group> findConnectedGroups(int[][] image) {    
-        if (image == null || image.length == 0) {       //base case
+        if (image == null || image.length == 0) {
             throw new NullPointerException("the array or any of its subarrays are null");
         }
-        if (image.length < 0 || image[0].length < 0) {      //base case
+        if (image.length < 0 || image[0].length < 0) {
             throw new IllegalArgumentException("The array is invalid");
         }
 
-        int groupIndex = 0;     //keep track of the group map index 
+        int groupIndex = 0;
         int rows = image.length;
         int cols = image[0].length;
-        boolean[][] visited = new boolean[rows][cols];      //keep track of visited pixels
+        boolean[][] visited = new boolean[rows][cols];
         
         //map to hold the coordinates of each group 
         //KEY:  key will be the group index
@@ -53,10 +53,13 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         {
             for (int c = 0; c < cols; c++)
             {
-                if (image[r][c] == 1 && !visited[r][c])     //found an unvisited pixel that is part of a group
+                if (image[r][c] == 1 && !visited[r][c])     // found an unvisited pixel that is part of a group
                 {
-                    coordinateMap.put(groupIndex ,returnGroupList(image, visited, r, c));      //get all the coordinates of the group and put them in the map
-                    groupIndex++;       //increment the group index for the next group
+                    List<int[]> connectedPixels = new ArrayList<>();
+
+                    //get all the coordinates of the group and put them in the map
+                    coordinateMap.put(groupIndex,returnGroupList(image, visited, r, c, connectedPixels));
+                    groupIndex++;
                 }
             }
         }
@@ -66,6 +69,12 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
          test.add(new Group(8,new Coordinate(4,5)));
          return test;
     }
+
+    /* [0,1,0,0],
+       [1,1,0,0],
+       [0,0,1,0],
+       [0,0,0,1] */
+
     /**
      * Group method is supposed to get all the coordinates of the group that we want and return them after getting the 
      * centroid and size. 
@@ -79,20 +88,19 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
      * 
      * (Study different dfs code to find how to traverse )
      */
-    public static List<int[]> returnGroupList(int[][] image, boolean[][] visited, int r, int c)
+    public static List<int[]> returnGroupList(int[][] image, boolean[][] visited, int r, int c, List<int[]> newConnectedPixels)
     {
-        List<int[]> connectedPixels = new ArrayList<>();       //list to hold the coordinates of the connected pixels in the group
-        if(r < 0 || c < 0 ||r > image.length || c > image[0].length || image[r][c] != 0) return null;
+        if(r < 0 || c < 0 ||r > image.length || c > image[0].length || image[r][c] != 0) return newConnectedPixels;
 
-        visited[r][c] = true;   //mark the pixel as visited
+        visited[r][c] = true;
 
-        connectedPixels.add(new int[]{r,c});    //add the coordinate to the list
+        newConnectedPixels.add(new int[]{r,c});
         
-        returnGroupList(image, visited, r, c + 1);    // right
-        returnGroupList(image, visited, r, c - 1);    // left
-        returnGroupList(image, visited, r - 1, c);    // up
-        returnGroupList(image, visited, r + 1, c);    // down
+        returnGroupList(image, visited, r - 1, c, newConnectedPixels);    // up
+        returnGroupList(image, visited, r + 1, c, newConnectedPixels);    // down
+        returnGroupList(image, visited, r, c - 1, newConnectedPixels);    // left
+        returnGroupList(image, visited, r, c + 1, newConnectedPixels);    // right
         
-        return connectedPixels;     //return the list of coordinates of the connected pixels in the group
+        return newConnectedPixels;
     }
 }
