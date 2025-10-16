@@ -103,15 +103,15 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
      */
     public static List<int[]> returnGroupList(int[][] image, boolean[][] visited, int r, int c, List<int[]> newConnectedPixels)
     {
-        if(r < 0 || c < 0 ||r > image.length || c > image[0].length || image[r][c] == 0 || visited[r][c] == true) return newConnectedPixels;
+        if(r < 0 || c < 0 ||r >= image.length || c >= image[0].length || image[r][c] == 0 || visited[r][c] == true) return newConnectedPixels;
 
         visited[r][c] = true;
 
         newConnectedPixels.add(new int[]{r,c});
         
-        returnGroupList(image, visited, r - 1, c, newConnectedPixels);    // up
         returnGroupList(image, visited, r, c + 1, newConnectedPixels);    // right
         returnGroupList(image, visited, r + 1, c, newConnectedPixels);    // down
+        returnGroupList(image, visited, r - 1, c, newConnectedPixels);    // up
         returnGroupList(image, visited, r, c - 1, newConnectedPixels);    // left
         
         return newConnectedPixels;
