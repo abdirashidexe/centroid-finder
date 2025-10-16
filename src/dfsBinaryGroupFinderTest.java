@@ -43,7 +43,7 @@ public class dfsBinaryGroupFinderTest {
 
         assertEquals(expectedCoords, result);
     }
-    
+
     @Test
     public void testReturnGroupList_singleConnectedPixel() {
         int[][] image = {
