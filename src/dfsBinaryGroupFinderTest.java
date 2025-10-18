@@ -155,15 +155,16 @@ public class dfsBinaryGroupFinderTest {
     @Test
     public void testHorizontalConnection() {
         int[][] image = {
-            {1, 1, 1}
+            {1, 1, 1} // [0, 0] [0, 1] [0, 2]
         };
         DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
         List<Group> groups = finder.findConnectedGroups(image);
         assertEquals(1, groups.size());
         Group g = groups.get(0);
         assertEquals(3, g.size());
-        assertEquals(1, g.centroid().x()); // avg of (0+1+2)/3 = 1
-        assertEquals(0, g.centroid().y());
+        assertEquals(0, g.centroid().x()); // avg of (0+0+0)/3 = 0
+        assertEquals(1, g.centroid().y()); // avg of (0+1+2)/3 = 1
+        assertEquals(new Coordinate(0, 1), g.centroid());
     }
 
     // *** TEST: 12 ***
