@@ -320,7 +320,7 @@ public class dfsBinaryGroupFinderTest {
         }
     }
 
-    // *** TEST: 19 ***
+    // *** TEST: 20 ***
     @Test
     public void testGroupsAreSortedDescending() {
         int[][] image = {
