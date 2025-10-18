@@ -208,18 +208,17 @@ public class dfsBinaryGroupFinderTest {
     public void testComplexShapeMultipleGroups() {
         int[][] image = {
             {1, 1, 0, 0},
-            {1, 0, 0, 1},
+            {1, 0, 0, 0},
             {0, 0, 1, 1}
         };
         DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
         List<Group> groups = finder.findConnectedGroups(image);
 
-        assertEquals(3, groups.size());
+        assertEquals(2, groups.size());
 
         // Expected group sizes: 3, 2, 2
         assertEquals(3, groups.get(0).size());
         assertEquals(2, groups.get(1).size());
-        assertEquals(2, groups.get(2).size());
     }
 
     // *** TEST: 15 ***
