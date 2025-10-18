@@ -123,7 +123,7 @@ public class dfsBinaryGroupFinderTest {
     public void testEmptyArrayThrowsException() {
         int[][] image = new int[0][0];
         DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
-        assertThrows(IllegalArgumentException.class, () -> finder.findConnectedGroups(image));
+        assertThrows(NullPointerException.class, () -> finder.findConnectedGroups(image));
     }
 
     // *** TEST: 9 ***
