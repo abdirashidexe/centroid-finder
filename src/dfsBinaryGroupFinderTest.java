@@ -271,6 +271,7 @@ public class dfsBinaryGroupFinderTest {
         assertEquals(result, groups.size());
     }
 
+    // *** TEST: 18 ***
     @Test
     void testSingleGroup_PixelCount() {
         int[][] image = {
@@ -287,30 +288,35 @@ public class dfsBinaryGroupFinderTest {
     }
 
     // *** TEST: 18 ***
-        // @Test
-    // void testDFScoordinates() {
+    @Test
+    void testDFScoordinates() {
 
-    //         // Input image
-    //     int[][] image = {
-    //         {1, 1, 0},
-    //         {1, 0, 0},
-    //         {0, 0, 0}
-    //     };
+        // Input image
+        int[][] image = {
+            {1, 1, 0},
+            {1, 0, 0},
+            {0, 0, 0}
+        };
 
-    //     boolean[][] visited = new boolean[image.length][image[0].length];
+        boolean[][] visited = new boolean[image.length][image[0].length];
 
-    //     //DfsBinaryGroupFinder dfs = new DfsBinaryGroupFinder();
+        DfsBinaryGroupFinder dfs = new DfsBinaryGroupFinder();
 
-    //     // Run DFS starting at top-left (0, 0)
-    //     List<int[]> result = DfsBinaryGroupFinder.returnGroupList(image, visited, 0, 0);
+        // Run DFS starting at top-left (0, 0)
+        List<int[]> newConnectedPixels = new ArrayList<>();
+        List<int[]> result = dfs.returnGroupList(image, visited, 0, 0, newConnectedPixels);
 
-    //     // Expected coordinates of connected 1’s
-    //     List<int[]> expectedCoords = List.of(
-    //         new int[]{0, 0},
-    //         new int[]{0, 1},
-    //         new int[]{1, 0}
-    //     );
+        // Expected coordinates of connected 1’s
+        List<int[]> expectedCoords = List.of(
+            new int[]{0, 0},
+            new int[]{0, 1},
+            new int[]{1, 0}
+        );
 
-    //     assertEquals(expectedCoords, result);
-    // }
+        // ✅ FIX: Use element-wise comparison instead of assertEquals on lists of arrays
+        assertEquals(expectedCoords.size(), result.size());
+        for (int i = 0; i < expectedCoords.size(); i++) {
+            assertArrayEquals(expectedCoords.get(i), result.get(i));
+        }
+    }
 }
