@@ -342,6 +342,6 @@ public class dfsBinaryGroupFinderTest {
                 "Groups are not sorted in descending order"
             );
         }
-}
+    }
 
 }

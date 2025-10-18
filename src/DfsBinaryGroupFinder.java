@@ -94,12 +94,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         {
             reverseGroups.add(officalListOfGroups.get(i));
         }
-
-        // for (Group g : officalListOfGroups) {
-        //     reverseGroups.add()
-        // }
-
-        // return officalListOfGroups;
+        
         return reverseGroups;
     }
 
