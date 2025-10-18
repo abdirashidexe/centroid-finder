@@ -77,10 +77,27 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
             }
         }
 
-        //return 
-         List<Group> test = new ArrayList<>();
-         test.add(new Group(8,new Coordinate(4,5)));
-         return test;
+        // after map contains [groupNum, List<int> of group coors] ...
+        // step 1: convert the List<int> to List<group>
+
+        // {0, [[1,0], 1,1], [0,1]}
+
+        List<Group> officalListOfGroups = new ArrayList<Group>();
+        for (int group : coordinateMap.keySet()) {
+
+            int groupSize = coordinateMap.get(group).size();
+
+            int[] centroidCoordinates = calculateCentroid(coordinateMap.get(group));
+            Coordinate centroid = new Coordinate(centroidCoordinates[0], centroidCoordinates[1]);
+
+            Group newGroup = new Group(groupSize, centroid);
+            officalListOfGroups.add(newGroup);
+        }
+
+        return officalListOfGroups;
+        //  List<Group> test = new ArrayList<>();
+        //  test.add(new Group(8,new Coordinate(4,5)));
+        //  return test;
     }
 
     /* [0,1,0,0],

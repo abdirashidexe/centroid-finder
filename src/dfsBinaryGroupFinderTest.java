@@ -59,25 +59,26 @@ public class dfsBinaryGroupFinderTest {
         assertArrayEquals(new int[]{1, 0}, result.get(2));
     }
 
-    @Test
-    public void testReturnGroupList_MultipleConnectedPixelEverywhere() {
-        int[][] image = {
-            {0,1,0,0},
-            {1,1,0,0},
-            {0,0,1,0},
-            {0,0,1,1}
-        };
-        boolean[][] visited = new boolean[100][100];
-        List<int[]> newConnectedPixels = new  ArrayList<>();
+@Test
+public void testFindConnectedGroups_MultipleGroupsInImage() {
+    int[][] image = {
+        {0,1,0,0},
+        {1,1,0,0},
+        {0,0,1,0},
+        {0,0,1,1}
+    };
 
-        List<int[]> result = DfsBinaryGroupFinder.returnGroupList(image, visited, 0, 0, newConnectedPixels);
+    DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
+    List<Group> groups = finder.findConnectedGroups(image);
 
-        // ✅ Assertions
-        assertNotNull(result);
-        assertEquals(3, result.size());
-        //assertArrayEquals(new int[]{0, 1}, result.get(0));
-    }
- 
+    assertNotNull(groups);
+    assertEquals(2, groups.size()); // ✅ two connected components
+
+    // Optional: verify group sizes
+    assertEquals(3, groups.get(0).size()); // top-left cluster
+    assertEquals(3, groups.get(1).size()); // bottom-right cluster
+}
+
     @Test
     public void testCalculateCentroid_SmallImage() {
         int[][] image = {
