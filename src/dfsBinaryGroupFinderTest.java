@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class dfsBinaryGroupFinderTest {
 
+    // *** TEST: 1 ***
     @Test
     public void testReturnGroupList_singleConnectedPixel() {
         int[][] image = {
@@ -22,6 +23,7 @@ public class dfsBinaryGroupFinderTest {
         assertArrayEquals(new int[]{0, 0}, result.get(0));
     }
 
+     // *** TEST: 2 ***
     @Test
     public void testReturnGroupList_multipleConnectedPixel() {
         int[][] image = {
@@ -40,6 +42,7 @@ public class dfsBinaryGroupFinderTest {
         assertArrayEquals(new int[]{0, 1}, result.get(1));
     }
     
+    // *** TEST: 3 ***
     @Test
     public void testReturnGroupList_verticallyAndHorizontalMultipleConnectedPixel() {
         int[][] image = {
@@ -59,26 +62,28 @@ public class dfsBinaryGroupFinderTest {
         assertArrayEquals(new int[]{1, 0}, result.get(2));
     }
 
-@Test
-public void testFindConnectedGroups_MultipleGroupsInImage() {
-    int[][] image = {
-        {0,1,0,0},
-        {1,1,0,0},
-        {0,0,1,0},
-        {0,0,1,1}
-    };
+    // *** TEST: 4 ***
+    @Test
+    public void testFindConnectedGroups_MultipleGroupsInImage() {
+        int[][] image = {
+            {0,1,0,0},
+            {1,1,0,0},
+            {0,0,1,0},
+            {0,0,1,1}
+        };
 
-    DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
-    List<Group> groups = finder.findConnectedGroups(image);
+        DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
+        List<Group> groups = finder.findConnectedGroups(image);
 
-    assertNotNull(groups);
-    assertEquals(2, groups.size()); // ✅ two connected components
+        assertNotNull(groups);
+        assertEquals(2, groups.size()); // ✅ two connected components
 
-    // Optional: verify group sizes
-    assertEquals(3, groups.get(0).size()); // top-left cluster
-    assertEquals(3, groups.get(1).size()); // bottom-right cluster
-}
+        // Optional: verify group sizes
+        assertEquals(3, groups.get(0).size()); // top-left cluster
+        assertEquals(3, groups.get(1).size()); // bottom-right cluster
+    }
 
+    // *** TEST: 5 ***
     @Test
     public void testCalculateCentroid_SmallImage() {
         int[][] image = {
@@ -98,12 +103,14 @@ public void testFindConnectedGroups_MultipleGroupsInImage() {
         assertEquals(new int[] {0,0}, resultCentroid);
     }
 
+    // *** TEST: 6 ***
     @Test
     public void testNullArrayThrowsException() {
         DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
         assertThrows(NullPointerException.class, () -> finder.findConnectedGroups(null));
     }
 
+    // *** TEST: 7 ***
     @Test
     public void testNullSubArrayThrowsException() {
         int[][] image = { null, {1, 0} };
@@ -111,6 +118,7 @@ public void testFindConnectedGroups_MultipleGroupsInImage() {
         assertThrows(NullPointerException.class, () -> finder.findConnectedGroups(image));
     }
 
+    // *** TEST: 8 ***
     @Test
     public void testEmptyArrayThrowsException() {
         int[][] image = new int[0][0];
@@ -118,6 +126,7 @@ public void testFindConnectedGroups_MultipleGroupsInImage() {
         assertThrows(IllegalArgumentException.class, () -> finder.findConnectedGroups(image));
     }
 
+    // *** TEST: 9 ***
     @Test
     public void testSinglePixelOne() {
         int[][] image = {
@@ -131,6 +140,7 @@ public void testFindConnectedGroups_MultipleGroupsInImage() {
         assertEquals(0, groups.get(0).centroid().y());
     }
 
+    // *** TEST: 10 ***
     @Test
     public void testSinglePixelZero() {
         int[][] image = {
@@ -141,6 +151,7 @@ public void testFindConnectedGroups_MultipleGroupsInImage() {
         assertTrue(groups.isEmpty());
     }
 
+    // *** TEST: 11 ***
     @Test
     public void testHorizontalConnection() {
         int[][] image = {
@@ -155,6 +166,7 @@ public void testFindConnectedGroups_MultipleGroupsInImage() {
         assertEquals(0, g.centroid().y());
     }
 
+    // *** TEST: 12 ***
     @Test
     public void testVerticalConnection() {
         int[][] image = {
@@ -171,6 +183,7 @@ public void testFindConnectedGroups_MultipleGroupsInImage() {
         assertEquals(1, g.centroid().y()); // avg of (0+1+2)/3 = 1
     }
 
+    // *** TEST: 13 ***
     @Test
     public void testTwoSeparateGroups() {
         int[][] image = {
@@ -188,6 +201,7 @@ public void testFindConnectedGroups_MultipleGroupsInImage() {
         assertEquals(1, g2.size());
     }
 
+    // *** TEST: 14 ***
     @Test
     public void testComplexShapeMultipleGroups() {
         int[][] image = {
@@ -206,6 +220,7 @@ public void testFindConnectedGroups_MultipleGroupsInImage() {
         assertEquals(2, groups.get(2).size());
     }
 
+    // *** TEST: 15 ***
     @Test
     public void testCentroidIntegerDivision() {
         int[][] image = {
@@ -225,6 +240,7 @@ public void testFindConnectedGroups_MultipleGroupsInImage() {
         assertEquals(0, g.centroid().y());
     }
 
+    // *** TEST: 16 ***
     @Test
     public void testNoDiagonalConnection() {
         int[][] image = {
@@ -238,6 +254,7 @@ public void testFindConnectedGroups_MultipleGroupsInImage() {
         assertEquals(1, groups.get(1).size());
     }
 
+    // *** TEST: 17 ***
         // @Test
     // void testSingleGroup() {
     //     int[][] image = {
@@ -250,6 +267,7 @@ public void testFindConnectedGroups_MultipleGroupsInImage() {
     //     assertEquals(result, finder.findConnectedGroups(image));
     // }
 
+    // *** TEST: 18 ***
         // @Test
     // void testDFScoordinates() {
 

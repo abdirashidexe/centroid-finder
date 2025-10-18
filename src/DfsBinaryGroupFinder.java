@@ -57,28 +57,22 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         int cols = image[0].length;
         boolean[][] visited = new boolean[rows][cols];
         
-        //map to hold the coordinates of each group 
-        //KEY:  key will be the group index
-        //VAL:  value will be the list of coordinates for that group in the form of an array
+        //map to hold the coordinates of each group | key: group index, value: list of coordinates for that group in array form
         HashMap<Integer, List<int[]>> coordinateMap = new HashMap<>();      
 
         for (int r = 0; r < rows; r++)
         {
             for (int c = 0; c < cols; c++)
             {
-                if (image[r][c] == 1 && !visited[r][c])     // found an unvisited pixel that is part of a group
+                if (image[r][c] == 1 && !visited[r][c])
                 {
                     List<int[]> connectedPixels = new ArrayList<>();
 
-                    //get all the coordinates of the group and put them in the map
                     coordinateMap.put(groupIndex,returnGroupList(image, visited, r, c, connectedPixels));
                     groupIndex++;
                 }
             }
         }
-
-        // after map contains [groupNum, List<int> of group coors] ...
-        // step 1: convert the List<int> to List<group>
 
         // {0, [[1,0], 1,1], [0,1]}
 
@@ -95,9 +89,6 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         }
 
         return officalListOfGroups;
-        //  List<Group> test = new ArrayList<>();
-        //  test.add(new Group(8,new Coordinate(4,5)));
-        //  return test;
     }
 
     /* [0,1,0,0],
