@@ -256,17 +256,35 @@ public class dfsBinaryGroupFinderTest {
     }
 
     // *** TEST: 17 ***
-        // @Test
-    // void testSingleGroup() {
-    //     int[][] image = {
-    //         {1, 1, 0},
-    //         {1, 0, 0},
-    //         {0, 0, 0}
-    //     };
-    //     DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
-    //     int result = 3;
-    //     assertEquals(result, finder.findConnectedGroups(image));
-    // }
+    @Test
+    void testSingleGroup() {
+        int[][] image = {
+            {1, 1, 0},
+            {1, 0, 0},
+            {0, 0, 0}
+        };
+        DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
+
+        List<Group> groups = finder.findConnectedGroups(image);
+
+        int result = 1;
+        assertEquals(result, groups.size());
+    }
+
+    @Test
+    void testSingleGroup_PixelCount() {
+        int[][] image = {
+            {1, 1, 0},
+            {1, 0, 0},
+            {0, 0, 0}
+        };
+        DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
+
+        List<Group> groups = finder.findConnectedGroups(image);
+
+        int result = 3;
+        assertEquals(result, groups.get(0).size());
+    }
 
     // *** TEST: 18 ***
         // @Test
