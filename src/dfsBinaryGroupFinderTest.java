@@ -287,7 +287,7 @@ public class dfsBinaryGroupFinderTest {
         assertEquals(result, groups.get(0).size());
     }
 
-    // *** TEST: 18 ***
+    // *** TEST: 19 ***
     @Test
     void testDFScoordinates() {
 
@@ -319,4 +319,29 @@ public class dfsBinaryGroupFinderTest {
             assertArrayEquals(expectedCoords.get(i), result.get(i));
         }
     }
+
+    // *** TEST: 19 ***
+    @Test
+    public void testGroupsAreSortedDescending() {
+        int[][] image = {
+            {1, 1, 0, 0},
+            {1, 0, 0, 1},
+            {0, 0, 1, 1}
+        };
+        DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
+        List<Group> groups = finder.findConnectedGroups(image);
+
+        assertEquals(2, groups.size());
+
+        // Verify descending order by compareTo (size or custom logic)
+        for (int i = 0; i < groups.size() - 1; i++) {
+            Group current = groups.get(i);
+            Group next = groups.get(i + 1);
+            assertTrue(
+                current.compareTo(next) >= 0,
+                "Groups are not sorted in descending order"
+            );
+        }
+}
+
 }
