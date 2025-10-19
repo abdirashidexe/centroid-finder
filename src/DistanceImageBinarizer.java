@@ -51,9 +51,17 @@ public class DistanceImageBinarizer implements ImageBinarizer {
      */
     @Override
     public int[][] toBinaryArray(BufferedImage image) {
+        int[][] myArray = new int[image.getWidth()][image.getHeight()];
 
-        // idk if its good to do new int[image.getWidth()][image.getHeight()] bc of the things about using fakes
-        int[][] myArray = new int[1][1];
+        /* 
+         * rough psuedo/idea:
+         * 1. loop thru image (so ex. start at (0,0))
+         * 2. use get(RGB) to get color (ex. #FFFFFF)
+         * 3. use distance method and store in variable
+         * 4. if distance(ourColor, targetColor) < thershold, set the (0,0) in myArray to white/1 (by using our loop so like myArray[i][j])
+         * 5. else distance(ourColor, targetColor) >= threshold, set our coordinates to black/0
+         * 6. add the result of that (pixel is 0 or 1) to our array
+         */
 
         return myArray;
     }
