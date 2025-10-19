@@ -20,18 +20,36 @@ public class EuclideanColorDistance implements ColorDistanceFinder {
     @Override
     public double distance(int colorA, int colorB) {
 
-        int colorA_RGB = convertHexToRGB(colorA); // should return: RGB --> will be r1, g1, b1
-        int colorB_RGB = convertHexToRGB(colorB); // should return: RGB --> will be r2, g2, b2
+        //int colorA_RGB = convertHexToRGB(colorA); // should return: RGB --> will be r1, g1, b1
+        //int colorB_RGB = convertHexToRGB(colorB); // should return: RGB --> will be r2, g2, b2
 
+        // RRGGBB, RRGGBB
+        String colorA_sRGB = convertHexToRGB(colorA);
+        String colorB_sRGB = convertHexToRGB(colorB);
 
+        // RR GG BB, RR GG BB
+        String colorA_R = colorA_sRGB.substring(0,2);
+        String colorA_G = colorA_sRGB.substring(2,4);
+        String colorA_B = colorA_sRGB.substring(4,6);
 
+        String colorB_R = colorB_sRGB.substring(0,2);
+        String colorB_G = colorB_sRGB.substring(2,4);
+        String colorB_B = colorB_sRGB.substring(4,6);
+
+        // back to int so they're ready for math
+        int r1 = Integer.parseInt(colorA_R);
+        int g1 = Integer.parseInt(colorA_G);
+        int b1 = Integer.parseInt(colorA_B);
+        int r2 = Integer.parseInt(colorB_R);
+        int g2 = Integer.parseInt(colorB_G);
+        int b2 = Integer.parseInt(colorB_B);
+        
         // do the math
-        //sqrt((r1 - r2)^2 + (g1 - g2)^2 + (b1 - b2)^2)
-        return 0;
+        return Math.sqrt((r1 - r2)^2 + (g1 - g2)^2 + (b1 - b2)^2);
     }
 
     // helper method for converting a hex int into R, G, and B components
-    public int convertHexToRGB(int hexValue) {
+    public String convertHexToRGB(int hexValue) {
 
         // 1: convert 24-bit to 3 split up 8 bits
         // ex: 00000000 11111111 00000000
@@ -59,7 +77,10 @@ public class EuclideanColorDistance implements ColorDistanceFinder {
         String r = Integer.toHexString(dR1).concat(Integer.toHexString(dR2));
         String g = Integer.toHexString(dG1).concat(Integer.toHexString(dG2));
         String b = Integer.toHexString(dB1).concat(Integer.toHexString(dB2));
+
+        // 4: concat all rgb now then connect w/ method
+        String rgb = r.concat(g).concat(b);
         
-        return 0;
+        return rgb;
     }
 }
