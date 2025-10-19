@@ -10,6 +10,12 @@ import java.awt.image.BufferedImage;
  * 
  * The color distance is computed using a provided ColorDistanceFinder, which defines how to compare two colors numerically.
  * The targetColor is represented as a 24-bit RGB integer in the form 0xRRGGBB.
+ * 
+ * 
+ * 
+ * ----***REMINDER: a lot of this class will be calling methods in BinaryGroupFinder and ColorDistanceFinder***----
+ * 
+ * 
  */
 public class DistanceImageBinarizer implements ImageBinarizer {
     private final ColorDistanceFinder distanceFinder;
@@ -45,7 +51,11 @@ public class DistanceImageBinarizer implements ImageBinarizer {
      */
     @Override
     public int[][] toBinaryArray(BufferedImage image) {
-        return null;
+
+        // idk if its good to do new int[image.getWidth()][image.getHeight()] bc of the things about using fakes
+        int[][] myArray = new int[1][1];
+
+        return myArray;
     }
 
     /**
@@ -58,6 +68,10 @@ public class DistanceImageBinarizer implements ImageBinarizer {
      */
     @Override
     public BufferedImage toBufferedImage(int[][] image) {
-        return null;
+
+        // When creating a new image, this will start the instance:
+        BufferedImage myImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        
+        return myImage;
     }
 }
