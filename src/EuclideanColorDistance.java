@@ -24,6 +24,19 @@ public class EuclideanColorDistance implements ColorDistanceFinder {
 
     // helper method for converting a hex int into R, G, and B components
     public int convertHexToRGB(int hexValue) {
+
+        // 1: convert 24-bit to 3 split up 8 bits
+        String hexString = String.valueOf(hexValue);
+
+        String stringRR = hexString.substring(0,8);
+        String stringGG = hexString.substring(8,16);
+        String stringBB = hexString.substring(16, 24);
+
+        // 2: convert back to int
+        int RR = Integer.parseInt(stringRR); // 8 binary bits
+        int GG = Integer.parseInt(stringGG); // 8 binary bits
+        int BB = Integer.parseInt(stringBB); // 8 binary bits
+        
         return 0;
     }
 }
