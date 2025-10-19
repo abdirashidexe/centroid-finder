@@ -1,5 +1,7 @@
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -53,21 +55,24 @@ public class DistanceImageBinarizer implements ImageBinarizer {
      * @return a 2D binary array where 1 represents white and 0 represents black
      */
     @Override
-    public int[][] toBinaryArray(BufferedImage image) {
-
+    public int[][] toBinaryArray(BufferedImage image) {        
         int[][] binaryArray = new int[image.getWidth()][image.getHeight()];     //Creating a new binary array that will have the height and width of the image
-        int imgPixel = image.getRGB(0, 0) & 0xFFFFFF;      //The current image pixel 
-        double distance = distanceFinder.distance(imgPixel, targetColor);      //the distance between the image and the target color (the reference color)
-
-        if(distance < threshold)       //if the distance is less than the threshold then the array would be 1 otherwise it will be zero
-        {
-            binaryArray[0][0] = 1;
-        }
-        else binaryArray[0][0] = 0;
-
-
         
+        for(int x = 0; x < image.getHeight(); x++)
+        {
+            for(int y = 0; y < image.getWidth(); y++)
+            {
+                int imgPixel = image.getRGB(x, y) & 0xFFFFFF;      //The current image pixel 
+                double distance = distanceFinder.distance(imgPixel, targetColor);      //the distance between the image and the target color (the reference color)
 
+                if(distance < threshold)       //if the distance is less than the threshold then the array would be 1 otherwise it will be zero
+                {
+                    binaryArray[0][0] = 1;
+                }
+                else binaryArray[0][0] = 0;
+            }
+        }
+        
         return binaryArray;
     }
 

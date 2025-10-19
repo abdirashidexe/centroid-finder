@@ -107,4 +107,5 @@ public class DistanceImageBinarizerTest {
             binarizer.toBufferedImage(null);
         });
     }
+    
 }
