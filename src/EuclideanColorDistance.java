@@ -28,14 +28,20 @@ public class EuclideanColorDistance implements ColorDistanceFinder {
         // 1: convert 24-bit to 3 split up 8 bits
         String hexString = String.valueOf(hexValue);
 
-        String stringRR = hexString.substring(0,8);
-        String stringGG = hexString.substring(8,16);
-        String stringBB = hexString.substring(16, 24);
+        String sR1 = hexString.substring(0,4);
+        String sR2 = hexString.substring(4,8);
+        String sG1 = hexString.substring(8,12);
+        String sG2 = hexString.substring(12,16);
+        String sB1 = hexString.substring(16, 20);
+        String sB2 = hexString.substring(20,24);
 
         // 2: convert back to int
-        int RR = Integer.parseInt(stringRR); // 8 binary bits
-        int GG = Integer.parseInt(stringGG); // 8 binary bits
-        int BB = Integer.parseInt(stringBB); // 8 binary bits
+        int R1 = Integer.parseInt(sR1); // 4 binary bits
+        int R2 = Integer.parseInt(sR2); // 4 binary bits
+        int G1 = Integer.parseInt(sG1); // 4 binary bits
+        int G2 = Integer.parseInt(sG2); // 4 binary bits
+        int B1 = Integer.parseInt(sB1); // 4 binary bits
+        int B2 = Integer.parseInt(sB2); // 4 binary bits
         
         return 0;
     }
