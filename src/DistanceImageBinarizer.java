@@ -1,4 +1,7 @@
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 
 /**
  * An implementation of the ImageBinarizer interface that uses color distance
@@ -52,10 +55,20 @@ public class DistanceImageBinarizer implements ImageBinarizer {
     @Override
     public int[][] toBinaryArray(BufferedImage image) {
 
-        // idk if its good to do new int[image.getWidth()][image.getHeight()] bc of the things about using fakes
-        int[][] myArray = new int[1][1];
+        int[][] binaryArray = new int[image.getWidth()][image.getHeight()];     //Creating a new binary array that will have the height and width of the image
+        int imgPixel = image.getRGB(0, 0);      //The current image pixel 
+        double distance = distanceFinder.distance(imgPixel, targetColor);      //the distance between the image and the target color (the reference color)
 
-        return myArray;
+        if(distance < threshold)       //if the distance is less than the threshold then the array would be 1 otherwise it will be zero
+        {
+            binaryArray[0][0] = 1;
+        }
+        else binaryArray[0][0] = 0;
+
+
+        
+
+        return binaryArray;
     }
 
     /**
