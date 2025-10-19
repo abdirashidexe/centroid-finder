@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class EuclideanColorDistance implements ColorDistanceFinder {
     /**
      * Returns the euclidean color distance between two hex RGB colors.
@@ -20,67 +23,36 @@ public class EuclideanColorDistance implements ColorDistanceFinder {
     @Override
     public double distance(int colorA, int colorB) {
 
-        //int colorA_RGB = convertHexToRGB(colorA); // should return: RGB --> will be r1, g1, b1
-        //int colorB_RGB = convertHexToRGB(colorB); // should return: RGB --> will be r2, g2, b2
+        // ex: 0xa24d9f --> 154, 77, 162
+        List<Integer> colorA_List = convertHexToRGB(colorA);
+        int r1 = colorA_List.get(0); 
+        int g1 = colorA_List.get(1);
+        int b1 = colorA_List.get(2);
 
-        // RRGGBB, RRGGBB
-        String colorA_sRGB = convertHexToRGB(colorA);
-        String colorB_sRGB = convertHexToRGB(colorB);
+        List<Integer> colorB_List = convertHexToRGB(colorB);
+        int r2 = colorB_List.get(0);
+        int g2 = colorB_List.get(1);
+        int b2 = colorB_List.get(2);
 
-        // RR GG BB, RR GG BB
-        String colorA_R = colorA_sRGB.substring(0,2);
-        String colorA_G = colorA_sRGB.substring(2,4);
-        String colorA_B = colorA_sRGB.substring(4,6);
-
-        String colorB_R = colorB_sRGB.substring(0,2);
-        String colorB_G = colorB_sRGB.substring(2,4);
-        String colorB_B = colorB_sRGB.substring(4,6);
-
-        // back to int so they're ready for math
-        int r1 = Integer.parseInt(colorA_R);
-        int g1 = Integer.parseInt(colorA_G);
-        int b1 = Integer.parseInt(colorA_B);
-        int r2 = Integer.parseInt(colorB_R);
-        int g2 = Integer.parseInt(colorB_G);
-        int b2 = Integer.parseInt(colorB_B);
-        
-        // do the math
         return Math.sqrt((r1 - r2)^2 + (g1 - g2)^2 + (b1 - b2)^2);
     }
 
-    // helper method for converting a hex int into R, G, and B components
-    public String convertHexToRGB(int hexValue) {
+    // helper method for converting a hex int into R, G, and B components (so: 0x00FF00 --> 0, 255, 0)
+    public List<Integer> convertHexToRGB(int hexValue) {
 
-        // 1: convert 24-bit to 3 split up 8 bits
-        // ex: 00000000 11111111 00000000
-        String hexString = String.valueOf(hexValue);
-
-        // ex: 0000 0000 1111 1111 0000 0000
-        String sR1 = hexString.substring(0,4);
-        String sR2 = hexString.substring(4,8);
-        String sG1 = hexString.substring(8,12);
-        String sG2 = hexString.substring(12,16);
-        String sB1 = hexString.substring(16, 20);
-        String sB2 = hexString.substring(20,24);
-
-        // 2: convert back to decimal int
-        // ex: 0 0 15 15 0 0
-        int dR1 = Integer.parseInt(sR1); // 4 binary bits
-        int dR2 = Integer.parseInt(sR2); // 4 binary bits
-        int dG1 = Integer.parseInt(sG1); // 4 binary bits
-        int dG2 = Integer.parseInt(sG2); // 4 binary bits
-        int dB1 = Integer.parseInt(sB1); // 4 binary bits
-        int dB2 = Integer.parseInt(sB2); // 4 binary bits
-
-        // 3: concat into their components
-        // ex: 00 FF 00
-        String r = Integer.toHexString(dR1).concat(Integer.toHexString(dR2));
-        String g = Integer.toHexString(dG1).concat(Integer.toHexString(dG2));
-        String b = Integer.toHexString(dB1).concat(Integer.toHexString(dB2));
-
-        // 4: concat all rgb now then connect w/ method
-        String rgb = r.concat(g).concat(b);
+        int color = hexValue; // ex: 0xa24d9f
+        int red = (color & 0xFF0000) >> 16; // ex: 162
+        int green = (color & 0x00FF00) >> 8; // ex: 77
+        int blue = color & 0x0000FF; // ex: 159
         
-        return rgb;
+        
+        List<Integer> rgbList = new ArrayList<>();
+
+        rgbList.add(red);
+        rgbList.add(green);
+        rgbList.add(blue);
+
+        // [159, 77, 162]
+        return rgbList;
     }
 }
