@@ -8,15 +8,18 @@ public class EuclideanColorDistanceTest {
     @Test
     void testSameColor() {
         int color = 0x123456;
-        assertEquals(0.0, colorDistance.distance(color, color), 0.0001);
+
+        EuclideanColorDistance distanceCalculator = new EuclideanColorDistance();
+
+        assertEquals(0.0, distanceCalculator.distance(color, color));
     }
 
-    /*@Test
+    @Test
     void testBlackAndWhite() {
         int black = 0x000000;
         int white = 0xFFFFFF;
         assertEquals(Math.sqrt(255*255*3), colorDistance.distance(black, white), 0.0001);
-    }*/
+    }
 
     @Test
     void testRedAndGreen() {
@@ -36,7 +39,9 @@ public class EuclideanColorDistanceTest {
     void testGrayShades() {
         int gray1 = 0x888888;
         int gray2 = 0x444444;
-        assertEquals(Math.sqrt(4*4*3*64), colorDistance.distance(gray1, gray2), 0.0001);
+        EuclideanColorDistance distanceCalculator = new EuclideanColorDistance();
+
+        assertEquals(Math.sqrt(4*4*3*64), distanceCalculator.distance(gray1, gray2));
     }
 
     @Test

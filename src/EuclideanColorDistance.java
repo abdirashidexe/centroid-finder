@@ -34,17 +34,16 @@ public class EuclideanColorDistance implements ColorDistanceFinder {
         int g2 = colorB_List.get(1);
         int b2 = colorB_List.get(2);
 
-        return Math.sqrt((r1 - r2)^2 + (g1 - g2)^2 + (b1 - b2)^2);
+        return Math.sqrt(Math.pow((r1 - r2),2) + Math.pow((g1 - g2),2) + Math.pow((b1 - b2),2));
     }
 
     // helper method for converting a hex int into R, G, and B components (so: 0x00FF00 --> 0, 255, 0)
     public List<Integer> convertHexToRGB(int hexValue) {
 
-        int color = hexValue; // ex: 0xa24d9f
-        int red = (color & 0xFF0000) >> 16; // ex: 162
-        int green = (color & 0x00FF00) >> 8; // ex: 77
-        int blue = color & 0x0000FF; // ex: 159
-        
+        int color = hexValue;                 // ex: 0xa24d9f
+        int red = (color & 0xFF0000) >> 16;   // ex: 159
+        int green = (color & 0x00FF00) >> 8;  // ex: 77
+        int blue = color & 0x0000FF;          // 162
         
         List<Integer> rgbList = new ArrayList<>();
 
