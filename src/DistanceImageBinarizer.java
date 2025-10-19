@@ -56,7 +56,7 @@ public class DistanceImageBinarizer implements ImageBinarizer {
     public int[][] toBinaryArray(BufferedImage image) {
 
         int[][] binaryArray = new int[image.getWidth()][image.getHeight()];     //Creating a new binary array that will have the height and width of the image
-        int imgPixel = image.getRGB(0, 0);      //The current image pixel 
+        int imgPixel = image.getRGB(0, 0) & 0xFFFFFF;      //The current image pixel 
         double distance = distanceFinder.distance(imgPixel, targetColor);      //the distance between the image and the target color (the reference color)
 
         if(distance < threshold)       //if the distance is less than the threshold then the array would be 1 otherwise it will be zero
@@ -83,7 +83,7 @@ public class DistanceImageBinarizer implements ImageBinarizer {
     public BufferedImage toBufferedImage(int[][] image) {
 
         // When creating a new image, this will start the instance:
-        BufferedImage myImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage myImage = new BufferedImage(image.length, image[0].length, BufferedImage.TYPE_INT_RGB);
         
         return myImage;
     }
