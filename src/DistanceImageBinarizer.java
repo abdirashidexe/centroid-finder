@@ -1,9 +1,4 @@
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.imageio.ImageIO;
 
 /**
  * An implementation of the ImageBinarizer interface that uses color distance
@@ -94,8 +89,6 @@ public class DistanceImageBinarizer implements ImageBinarizer {
         {
             for(int y = 0; y < image[0].length; y++)
             {
-                //int imgPixel = image.getRGB(x, y) & 0xFFFFFF;      //The current image pixel 
-
                 if(image[x][y] == 1)
                 {
                     myImage.setRGB(x, y, 0xFFFFFF);
