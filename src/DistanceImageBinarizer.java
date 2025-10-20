@@ -71,7 +71,6 @@ public class DistanceImageBinarizer implements ImageBinarizer {
                 }
             }
         }
-        
         return binaryArray;
     }
 
