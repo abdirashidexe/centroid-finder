@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -88,14 +89,9 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
             officalListOfGroups.add(newGroup);
         }
 
-        List<Group> reverseGroups = new ArrayList<Group>();
-
-        for (int i = officalListOfGroups.size()-1; i >= 0; i--)
-        {
-            reverseGroups.add(officalListOfGroups.get(i));
-        }
+        Collections.sort(officalListOfGroups, Collections.reverseOrder());
         
-        return reverseGroups;
+        return officalListOfGroups;
     }
 
     /* [0,1,0,0],
