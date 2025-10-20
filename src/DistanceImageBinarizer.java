@@ -68,6 +68,8 @@ public class DistanceImageBinarizer implements ImageBinarizer {
                 if(distance < threshold)       //if the distance is less than the threshold then the array would be 1 otherwise it will be zero
                 {
                     binaryArray[x][y] = 1;
+                } else {
+                    binaryArray[x][y] = 0;
                 }
             }
         }
@@ -87,6 +89,21 @@ public class DistanceImageBinarizer implements ImageBinarizer {
 
         // When creating a new image, this will start the instance:
         BufferedImage myImage = new BufferedImage(image.length, image[0].length, BufferedImage.TYPE_INT_RGB);
+
+        for(int x = 0; x < image.length; x++)
+        {
+            for(int y = 0; y < image[0].length; y++)
+            {
+                //int imgPixel = image.getRGB(x, y) & 0xFFFFFF;      //The current image pixel 
+
+                if(image[x][y] == 1)
+                {
+                    myImage.setRGB(x, y, 0xFFFFFF);
+                } else {
+                    myImage.setRGB(x, y, 0x000000);
+                }
+            }
+        }
         
         return myImage;
     }
