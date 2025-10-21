@@ -1,3 +1,5 @@
+package io.github.abdirashidexe.centroidfinder;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,3 +1,5 @@
+package io.github.abdirashidexe.centroidfinder;
+
 /**
  * Represents a location in an image or array
  * 
