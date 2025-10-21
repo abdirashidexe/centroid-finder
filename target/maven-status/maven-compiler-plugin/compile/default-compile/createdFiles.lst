@@ -1,0 +1,11 @@
+io\github\abdirashidexe\centroidfinder\DfsBinaryGroupFinder.class
+io\github\abdirashidexe\centroidfinder\ColorDistanceFinder.class
+io\github\abdirashidexe\centroidfinder\Coordinate.class
+io\github\abdirashidexe\centroidfinder\DistanceImageBinarizer.class
+io\github\abdirashidexe\centroidfinder\EuclideanColorDistance.class
+io\github\abdirashidexe\centroidfinder\Group.class
+io\github\abdirashidexe\centroidfinder\ImageBinarizer.class
+io\github\abdirashidexe\centroidfinder\ImageSummaryApp.class
+io\github\abdirashidexe\centroidfinder\BinarizingImageGroupFinder.class
+io\github\abdirashidexe\centroidfinder\BinaryGroupFinder.class
+io\github\abdirashidexe\centroidfinder\ImageGroupFinder.class
