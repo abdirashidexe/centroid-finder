@@ -10,12 +10,12 @@ Cons:
 
 Option 2: Javafx
 Pros:
-1. 
-2. 
+1. Visually its really modern and it will look better than most other programs 
+2. built in methods for play(), pause(), and stop()
 
 Cons:
-1. 
-2. 
+1. There will be some bugs and we would need to manually add javaFX modules 
+2. Not optimized for real time video processing and you can't record, edit, or convert videos 
 
 
 Option 3: vlcj
