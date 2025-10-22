@@ -20,8 +20,8 @@ Cons:
 
 Option 3: vlcj
 Pros:
-1. 
-2. 
+1. Advanced play back features and gives the user a lot of control when working with the platform 
+2. We can grab raw frames and has a strong community behind it that we can get help from if needed 
 
 Cons:
 1. Extensively tested & primarily developed for Linux
