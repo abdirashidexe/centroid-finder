@@ -24,5 +24,5 @@ Pros:
 2. 
 
 Cons:
-1. 
-2. 
+1. Extensively tested & primarily developed for Linux
+2. Required you to install VLC, the multimedia player
