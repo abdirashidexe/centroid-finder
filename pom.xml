@@ -13,7 +13,6 @@
   </properties>
 
   <dependencies>
-    
     <!-- JUnit Jupiter -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -21,12 +20,14 @@
       <version>5.10.0</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- JCodec for Java SE (includes AWTUtil) -->
     <dependency>
       <groupId>org.jcodec</groupId>
-      <artifactId>jcodec</artifactId>
-      <version>0.2.3</version>
+      <artifactId>jcodec-javase</artifactId>
+      <version>0.2.5</version>
     </dependency>
-    
+
   </dependencies>
 
   <build>
