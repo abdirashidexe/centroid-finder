@@ -18,10 +18,16 @@ public class VideoExperiment {
 
         FrameGrab grab = FrameGrab.createFrameGrab(NIOUtils.readableChannel(videoFile));
         Picture picture = grab.getNativeFrame();
+        int frameNumber = 0;
 
+        while ((picture = grab.getNativeFrame()) != null) {
         BufferedImage bufferedImage = AWTUtil.toBufferedImage(picture);
-        ImageIO.write(bufferedImage, "png", new File("frame1.png"));
 
-        System.out.println("Frame extracted successfully!");
+        String fileName = String.format("frame_%05d.png", frameNumber++);
+        ImageIO.write(bufferedImage, "png", new File(fileName));
+
+        System.out.println("Saved " + fileName);
     }
+        System.out.println("All frames extracted successfully!");
+}
 }
