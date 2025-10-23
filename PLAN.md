@@ -12,3 +12,10 @@ Create a videoSummarryApp
 4 Have the videoSummaryApp return the biggest x and y from the groups CSV
 5 
 
+----
+
+Plan for next meeting:
+
+1. Ask AI how to go about this: Usage: java ImageSummaryApp <input_image> <hex_target_color> <threshold>
+2. Combining imageSummary to fit video frames
+3. Get a new simple video - square moving from AI
