@@ -60,50 +60,48 @@ public class VideoSummaryApp {
         }
         
         //If the frame we grabbed isn't null then keep finding other frames
-        if(grab != null)
+        try (PrintWriter summaryWriter = new PrintWriter("video_summary.csv")) 
         {
-            Picture picture = null;
-            while ((picture = grab.getNativeFrame()) != null) {
-                BufferedImage frameImage = AWTUtil.toBufferedImage(picture);
+            if(grab != null)
+            {
+                int time = (int)(frameNumber / 30); 
+                Picture picture = null;
+                while ((picture = grab.getNativeFrame()) != null) {
+                    BufferedImage frameImage = AWTUtil.toBufferedImage(picture);
+            
+                    String fileName = String.format("frame_%05d.png", frameNumber);
+                    ImageIO.write(frameImage, "png", new File(fileName));
+
+                    // Create the DistanceImageBinarizer with a EuclideanColorDistance instance.
+                    ColorDistanceFinder distanceFinder = new EuclideanColorDistance();
+                    ImageBinarizer binarizer = new DistanceImageBinarizer(distanceFinder, targetColor, threshold);
+                    
+                    // Binarize the input image.
+                    int[][] binaryArray = binarizer.toBinaryArray(frameImage);
+                    BufferedImage binaryImage = binarizer.toBufferedImage(binaryArray);
         
-                String fileName = String.format("frame_%05d.png", frameNumber);
-                ImageIO.write(frameImage, "png", new File(fileName));
+                    String binName = String.format("binarized_%05d.png", frameNumber);
+                    ImageIO.write(binaryImage, "png", new File(binName));
+            
 
-                // Create the DistanceImageBinarizer with a EuclideanColorDistance instance.
-                ColorDistanceFinder distanceFinder = new EuclideanColorDistance();
-                ImageBinarizer binarizer = new DistanceImageBinarizer(distanceFinder, targetColor, threshold);
-                
-                // Binarize the input image.
-                int[][] binaryArray = binarizer.toBinaryArray(frameImage);
-                BufferedImage binaryImage = binarizer.toBufferedImage(binaryArray);
-    
-                String binName = String.format("binarized_%05d.png", frameNumber);
-                ImageIO.write(binaryImage, "png", new File(binName));
-        
-
-                // Create an ImageGroupFinder using a BinarizingImageGroupFinder with a DFS-based BinaryGroupFinder.
-                ImageGroupFinder groupFinder = new BinarizingImageGroupFinder(binarizer, new DfsBinaryGroupFinder());
-                
-                //Groups will need to be changed to return [time, x, y] (Where there is the BIGGEST connected groups)
-                List<Group> groups = groupFinder.findConnectedGroups(frameImage);
-                
-                String csvFileName = String.format("groups_%05d.csv", frameNumber);
-                try (PrintWriter writer = new PrintWriter(csvFileName)) {
-                    for (Group group : groups) writer.println(group.toCsvRow());
-                }
-
-                // Now read the first line of that just-created CSV
-                try (BufferedReader reader = new BufferedReader(new FileReader(csvFileName))) {
-                    String firstLine = reader.readLine();
-                    if (firstLine != null) {
-                        System.out.println(csvFileName + " → " + firstLine);
-                    } else {
-                        System.out.println(csvFileName + " → [empty file]");
+                    // Create an ImageGroupFinder using a BinarizingImageGroupFinder with a DFS-based BinaryGroupFinder.
+                    ImageGroupFinder groupFinder = new BinarizingImageGroupFinder(binarizer, new DfsBinaryGroupFinder());
+                    
+                    //Groups will need to be changed to return [time, x, y] (Where there is the BIGGEST connected groups)
+                    List<Group> groups = groupFinder.findConnectedGroups(frameImage);
+                    
+                    if (!groups.isEmpty()) {
+                        Group largestGroup = groups.get(0);
+                        int x = largestGroup.centroid().x();
+                        int y = largestGroup.centroid().y();
+                        // Write a row: time,x,y
+                        summaryWriter.println(time + "," + x + "," + y); 
                     }
-                } catch (IOException e) {
-                    System.err.println("Error reading " + csvFileName + ": " + e.getMessage());
+                    else {
+                        System.out.println("Frame " + frameNumber + " → no groups found");
+                    }
+                    System.out.println("Processed frame " + frameNumber++);
                 }
-                System.out.println("Processed frame " + frameNumber++);
             }
         }
     }
