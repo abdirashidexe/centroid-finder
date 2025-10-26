@@ -21,7 +21,7 @@ public class VideoSummaryApp {
 
         //Getting the user input for the video path, target color, and threshold
         if (args.length < 3) {
-            System.out.println("Usage: java ImageSummaryApp <input_image> <hex_target_color> <threshold>");
+            System.out.println("Usage: java VideoSummaryApp <input_video> <hex_target_color> <threshold>");
             return;
         }
         String inputVideoPath = args[0];
@@ -60,48 +60,36 @@ public class VideoSummaryApp {
         //If the frame we grabbed isn't null then keep finding other frames
         if(grab != null)
         {
-            Picture picture = grab.getNativeFrame();
+            Picture picture = null;
             while ((picture = grab.getNativeFrame()) != null) {
-                BufferedImage bufferedImage = AWTUtil.toBufferedImage(picture);
+                BufferedImage frameImage = AWTUtil.toBufferedImage(picture);
         
-                String fileName = String.format("frame_%05d.png", frameNumber++);
-                ImageIO.write(bufferedImage, "png", new File(fileName));
+                String fileName = String.format("frame_%05d.png", frameNumber);
+                ImageIO.write(frameImage, "png", new File(fileName));
 
                 // Create the DistanceImageBinarizer with a EuclideanColorDistance instance.
                 ColorDistanceFinder distanceFinder = new EuclideanColorDistance();
                 ImageBinarizer binarizer = new DistanceImageBinarizer(distanceFinder, targetColor, threshold);
                 
                 // Binarize the input image.
-                int[][] binaryArray = binarizer.toBinaryArray(bufferedImage);
+                int[][] binaryArray = binarizer.toBinaryArray(frameImage);
                 BufferedImage binaryImage = binarizer.toBufferedImage(binaryArray);
     
-                // Write the binarized image to disk as "binarized.png".
-                try {
-                    ImageIO.write(binaryImage, "png", new File("binarized.png"));
-                    System.out.println("Binarized image saved as binarized.png");
-                } catch (Exception e) {
-                    System.err.println("Error saving binarized image.");
-                    e.printStackTrace();
-                }
+                String binName = String.format("binarized_%05d.png", frameNumber);
+                ImageIO.write(binaryImage, "png", new File(binName));
+        
 
                 // Create an ImageGroupFinder using a BinarizingImageGroupFinder with a DFS-based BinaryGroupFinder.
                 ImageGroupFinder groupFinder = new BinarizingImageGroupFinder(binarizer, new DfsBinaryGroupFinder());
                 
-                // Find connected groups in the input image.
-                // The BinarizingImageGroupFinder is expected to internally binarize the image,
-                // then locate connected groups of white pixels.
-                List<Group> groups = groupFinder.findConnectedGroups(bufferedImage);
+                //Groups will need to be changed to return [time, x, y] (Where there is the BIGGEST connected groups)
+                List<Group> groups = groupFinder.findConnectedGroups(frameImage);
                 
                 // Write the groups information to a CSV file "groups.csv".
-                try (PrintWriter writer = new PrintWriter("groups.csv")) {
-                    for (Group group : groups) {
-                        writer.println(group.toCsvRow());
-                    }
-                    System.out.println("Groups summary saved as groups.csv");
-                } catch (Exception e) {
-                    System.err.println("Error writing groups.csv");
-                    e.printStackTrace();
+                try (PrintWriter writer = new PrintWriter(String.format("groups_%05d.csv", frameNumber))) {
+                    for (Group group : groups) writer.println(group.toCsvRow());
                 }
+                System.out.println("Processed frame " + frameNumber++);
             }
         }
         
