@@ -1,8 +1,10 @@
 package io.github.abdirashidexe.centroidfinder;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -85,15 +87,24 @@ public class VideoSummaryApp {
                 //Groups will need to be changed to return [time, x, y] (Where there is the BIGGEST connected groups)
                 List<Group> groups = groupFinder.findConnectedGroups(frameImage);
                 
-                // Write the groups information to a CSV file "groups.csv".
-                try (PrintWriter writer = new PrintWriter(String.format("groups_%05d.csv", frameNumber))) {
+                String csvFileName = String.format("groups_%05d.csv", frameNumber);
+                try (PrintWriter writer = new PrintWriter(csvFileName)) {
                     for (Group group : groups) writer.println(group.toCsvRow());
+                }
+
+                // Now read the first line of that just-created CSV
+                try (BufferedReader reader = new BufferedReader(new FileReader(csvFileName))) {
+                    String firstLine = reader.readLine();
+                    if (firstLine != null) {
+                        System.out.println(csvFileName + " → " + firstLine);
+                    } else {
+                        System.out.println(csvFileName + " → [empty file]");
+                    }
+                } catch (IOException e) {
+                    System.err.println("Error reading " + csvFileName + ": " + e.getMessage());
                 }
                 System.out.println("Processed frame " + frameNumber++);
             }
         }
-        
-        
-
     }
 }
