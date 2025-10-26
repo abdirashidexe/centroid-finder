@@ -59,19 +59,21 @@ public class VideoSummaryApp {
             e.printStackTrace();
         }
         
-        //If the frame we grabbed isn't null then keep finding other frames
+        //Creating a csv file outside the loop to have only one 
         try (PrintWriter summaryWriter = new PrintWriter("video_summary.csv")) 
         {
+            //If the frame we grabbed isn't null then keep finding other frames
             if(grab != null)
             {
-                int time = (int)(frameNumber / 30); 
+
                 Picture picture = null;
                 while ((picture = grab.getNativeFrame()) != null) {
+                    int time = (int)(frameNumber / 30); 
                     BufferedImage frameImage = AWTUtil.toBufferedImage(picture);
             
                     String fileName = String.format("frame_%05d.png", frameNumber);
-                    ImageIO.write(frameImage, "png", new File(fileName));
-
+                    ImageIO.write(frameImage, "png", new File(fileName));       //delete after testing
+                    
                     // Create the DistanceImageBinarizer with a EuclideanColorDistance instance.
                     ColorDistanceFinder distanceFinder = new EuclideanColorDistance();
                     ImageBinarizer binarizer = new DistanceImageBinarizer(distanceFinder, targetColor, threshold);
@@ -81,7 +83,7 @@ public class VideoSummaryApp {
                     BufferedImage binaryImage = binarizer.toBufferedImage(binaryArray);
         
                     String binName = String.format("binarized_%05d.png", frameNumber);
-                    ImageIO.write(binaryImage, "png", new File(binName));
+                    ImageIO.write(binaryImage, "png", new File(binName));       //delete after testing
             
 
                     // Create an ImageGroupFinder using a BinarizingImageGroupFinder with a DFS-based BinaryGroupFinder.
