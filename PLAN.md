@@ -19,3 +19,9 @@ Plan for next meeting:
 1. Ask AI how to go about this: Usage: java ImageSummaryApp <input_image> <hex_target_color> <threshold>
 2. Combining imageSummary to fit video frames
 3. Get a new simple video - square moving from AI
+
+----
+
+To validate that it's actually tracking the salamander, we used a few different videos. The bouncing ball video showed that it accurately outputs (-1,-1) when it's off camera and the bug walking video accurately shows the coordinates increasing in the right direction until they eventually become (-1,-1) because the bug goes off camera.
+
+For the salamander: We cropped the salamander video because it would take about an hour to run the entire 8 minute video. It was cropped to 14 seconds.
