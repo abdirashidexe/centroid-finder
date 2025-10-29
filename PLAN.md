@@ -25,3 +25,7 @@ Plan for next meeting:
 To validate that it's actually tracking the salamander, we used a few different videos. The bouncing ball video showed that it accurately outputs (-1,-1) when it's off camera and the bug walking video accurately shows the coordinates increasing in the right direction until they eventually become (-1,-1) because the bug goes off camera.
 
 For the salamander: We cropped the salamander video because it would take about an hour to run the entire 8 minute video. It was cropped to 14 seconds.
+
+Cropped Salamander Video Test command: mvn clean compile exec:java -Dexec.args="src/main/resources/videos/Salamander.mp4 output.csv 64000F 50"
+
+To test the full 8 minute one, we would channge Salamander.mp4 to ensantina.mp4 (WARNING: may take 1hr to run)

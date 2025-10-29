@@ -32,7 +32,7 @@ public class dfsBinaryGroupFinderTest {
             {1, 1, 0},
             {0, 0, 0}
         };
-        boolean[][] visited = new boolean[2][2];
+        boolean[][] visited = new boolean[image.length][image[0].length];
         List<int[]> newConnectedPixels = new  ArrayList<>();
 
         List<int[]> result = DfsBinaryGroupFinder.returnGroupList(image, visited, 0, 0, newConnectedPixels);
@@ -51,7 +51,7 @@ public class dfsBinaryGroupFinderTest {
             {1, 1, 0},
             {1, 0, 0}
         };
-        boolean[][] visited = new boolean[2][2];
+        boolean[][] visited = new boolean[image.length][image[0].length];
         List<int[]> newConnectedPixels = new  ArrayList<>();
 
         List<int[]> result = DfsBinaryGroupFinder.returnGroupList(image, visited, 0, 0, newConnectedPixels);

@@ -122,11 +122,11 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
             visited[row][col] = true;
             newConnectedPixels.add(new int[]{row, col});
 
-            // Push neighbors onto the stack (right, down, left, up)
-            stack.add(new int[]{row, col + 1});
-            stack.add(new int[]{row + 1, col});
-            stack.add(new int[]{row, col - 1});
-            stack.add(new int[]{row - 1, col});
+            // Desired order: right, down, left, up → push in reverse: up, left, down, right
+            stack.add(new int[]{row - 1, col});  // up
+            stack.add(new int[]{row, col - 1});  // left
+            stack.add(new int[]{row + 1, col});  // down
+            stack.add(new int[]{row, col + 1});  // right
         }
 
         return newConnectedPixels;
