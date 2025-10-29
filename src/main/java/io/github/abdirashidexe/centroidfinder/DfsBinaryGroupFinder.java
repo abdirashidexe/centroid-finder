@@ -101,19 +101,34 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
      * 
      * (Study different dfs code to find how to traverse )
      */
-    public static List<int[]> returnGroupList(int[][] image, boolean[][] visited, int r, int c, List<int[]> newConnectedPixels)
-    {
-        if(r < 0 || c < 0 ||r >= image.length || c >= image[0].length || image[r][c] == 0 || visited[r][c] == true) return newConnectedPixels;
+    public static List<int[]> returnGroupList(int[][] image, boolean[][] visited, int r, int c, List<int[]> newConnectedPixels) {
+        int rows = image.length;
+        int cols = image[0].length;
 
-        visited[r][c] = true;
+        // Stack for DFS
+        ArrayList<int[]> stack = new ArrayList<>();
+        stack.add(new int[]{r, c});
 
-        newConnectedPixels.add(new int[]{r,c});
-        
-        returnGroupList(image, visited, r, c + 1, newConnectedPixels);    // right
-        returnGroupList(image, visited, r + 1, c, newConnectedPixels);    // down
-        returnGroupList(image, visited, r - 1, c, newConnectedPixels);    // up
-        returnGroupList(image, visited, r, c - 1, newConnectedPixels);    // left
-        
+        while (!stack.isEmpty()) {
+            int[] current = stack.remove(stack.size() - 1);
+            int row = current[0];
+            int col = current[1];
+
+            // Skip if out of bounds, already visited, or pixel is 0
+            if (row < 0 || row >= rows || col < 0 || col >= cols || visited[row][col] || image[row][col] == 0) {
+                continue;
+            }
+
+            visited[row][col] = true;
+            newConnectedPixels.add(new int[]{row, col});
+
+            // Push neighbors onto the stack (right, down, left, up)
+            stack.add(new int[]{row, col + 1});
+            stack.add(new int[]{row + 1, col});
+            stack.add(new int[]{row, col - 1});
+            stack.add(new int[]{row - 1, col});
+        }
+
         return newConnectedPixels;
     }
 
