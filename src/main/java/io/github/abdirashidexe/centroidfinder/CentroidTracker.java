@@ -22,7 +22,7 @@ public class CentroidTracker {
         for (BufferedImage frame : frames) {
             Coordinate c = analyzer.analyzeFrame(frame);
             double time = frameNumber / fps;
-            data.add(new FrameData(time, c.x(), c.y()));
+            data.add(new FrameData((int) time, c.x(), c.y()));
             frameNumber++;
         }
         return data;
