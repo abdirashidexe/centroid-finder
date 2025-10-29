@@ -29,3 +29,5 @@ For the salamander: We cropped the salamander video because it would take about 
 Cropped Salamander Video Test command: mvn clean compile exec:java -Dexec.args="src/main/resources/videos/Salamander.mp4 output.csv 64000F 50"
 
 To test the full 8 minute one, we would channge Salamander.mp4 to ensantina.mp4 (WARNING: may take 1hr to run)
+
+Jar works with this line: java -jar centroidfinder-1.0-SNAPSHOT-jar-with-dependencies.jar ../src/main/resources/videos/Salamander.mp4 output.csv 64000F 50

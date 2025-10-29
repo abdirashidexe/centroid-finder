@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public class dfsBinaryGroupFinderTest {
 
-    // *** TEST: 1 ***
+    // *** TEST: 1 ***;
     @Test
     public void testReturnGroupList_singleConnectedPixel() {
         int[][] image = {
