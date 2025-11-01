@@ -8,7 +8,7 @@ public class CsvWriter {
     public static void writeResults(String outputPath, List<FrameData> data) throws IOException {
         try (FileWriter writer = new FileWriter(outputPath)) {
             for (FrameData f : data) {
-                writer.write(String.format("%d,%d,%d%n", f.time(), f.x(), f.y()));
+                writer.write(String.format("%.2f,%d,%d%n", f.time(), f.x(), f.y()));
             }
         }
     }
