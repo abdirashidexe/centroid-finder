@@ -15,10 +15,9 @@ dotenv.config({ path: path.join(__dirname, "../.env") });
 const app = express();
 
 const PORT = process.env.PORT || 3000;
-const VIDEOS_DIR = process.env.VIDEOS_DIR;
-const RESULTS_DIR = process.env.RESULTS_DIR;
-const JAR_PATH = process.env.JAR_PATH;
-
+const VIDEOS_DIR = path.resolve(__dirname, "..", process.env.VIDEOS_DIR);
+const RESULTS_DIR = path.resolve(__dirname, "..", process.env.RESULTS_DIR);
+const JAR_PATH = path.resolve(__dirname, "..", process.env.JAR_PATH);
 //testing
 console.log("Videos directory:", VIDEOS_DIR);
 console.log("Results directory:", RESULTS_DIR);
@@ -38,5 +37,5 @@ app.get('/videos', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port http://localhost:${PORT}`);
 });
