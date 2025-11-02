@@ -3,7 +3,15 @@ import dotenv from "dotenv";
 import path from "path";
 import fs from 'fs'; // file stystem module
 
-dotenv.config(); // loads variables from .env
+import { fileURLToPath } from "url";
+
+// Needed for __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load .env from the project root (one level above /server)
+dotenv.config({ path: path.join(__dirname, "../.env") });
+
 const app = express();
 
 const PORT = process.env.PORT || 3000;
