@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: io.github.abdirashidexe.centroidfinder.dfsBinaryGroupFinderTest
--------------------------------------------------------------------------------
-Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.108 s -- in io.github.abdirashidexe.centroidfinder.dfsBinaryGroupFinderTest
