@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import path from "path";
+import videoRoutes from "./routes/videos.js";
 import fs from 'fs'; // file stystem module
 
 import { fileURLToPath } from "url";
@@ -25,18 +26,9 @@ console.log("Videos directory:", VIDEOS_DIR);
 console.log("Results directory:", RESULTS_DIR);
 console.log("Java JAR path:", JAR_PATH);
 
-app.get('/api/videos', (req, res) => {
-    try {
-        // read the directory, filter out anything that isn’t a video file (optional), & send JSON response
-        const files = fs.readdirSync(VIDEOS_DIR);
-        const videoFiles = files.filter(file => file.endsWith('.mp4'));
-        res.json({ videos: videoFiles });
-    } catch (err) {
-        // if folder doesn't exist or some error happens
-        console.error(err);
-        res.status(500).json({ error: 'Could not read videos folder' });
-    }
-});
+app.use("/api", videoRoutes(VIDEOS_DIR));
+//app.use("/thumbnail/{filename}", );
+//app.use("/api", videoRoutes(VIDEOS_DIR));
 
 app.listen(PORT, () => {
   console.log(`Server running on port http://localhost:${PORT}`);
