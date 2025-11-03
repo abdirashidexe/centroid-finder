@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import path from "path";
 import videoRoutes from "./routes/videos.js";
+import thumbnailRouter from "./routes/thumbnail.js"
 import fs from 'fs'; // file stystem module
 
 import { fileURLToPath } from "url";
@@ -27,7 +28,7 @@ console.log("Results directory:", RESULTS_DIR);
 console.log("Java JAR path:", JAR_PATH);
 
 app.use("/api", videoRoutes(VIDEOS_DIR));
-//app.use("/thumbnail/{filename}", );
+app.use(thumbnailRouter(VIDEOS_DIR, RESULTS_DIR)); 
 //app.use("/api", videoRoutes(VIDEOS_DIR));
 
 app.listen(PORT, () => {
