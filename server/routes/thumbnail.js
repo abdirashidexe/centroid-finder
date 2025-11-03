@@ -25,7 +25,7 @@ export default (VIDEOS_DIR, RESULTS_DIR) => {
         count: 1,                // Only one frame
         folder: RESULTS_DIR,     // Save in results folder
         filename: `${videoName}-frame.jpg`, 
-        timemarks: ['00:00:01']  // Capture at 1 second
+        timemarks: ['00:00:00']  // Capture at 1 second
       });
 
     // When done, send the image back to the client

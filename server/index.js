@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import path from "path";
 import videoRoutes from "./routes/videos.js";
 import thumbnailRouter from "./routes/thumbnail.js"
+import processRouter from "./routes/process.js"
 import fs from 'fs'; // file stystem module
 
 import { fileURLToPath } from "url";
@@ -29,7 +30,7 @@ console.log("Java JAR path:", JAR_PATH);
 
 app.use("/api", videoRoutes(VIDEOS_DIR));
 app.use(thumbnailRouter(VIDEOS_DIR, RESULTS_DIR)); 
-//app.use("/api", videoRoutes(VIDEOS_DIR));
+app.use(processRouter(VIDEOS_DIR, RESULTS_DIR, JAR_PATH));
 
 app.listen(PORT, () => {
   console.log(`Server running on port http://localhost:${PORT}`);
