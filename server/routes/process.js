@@ -1,47 +1,38 @@
 import express from "express";
-import { spawn } from "child_process";  // lets us run a Java program
-import { v4 as uuidv4 } from "uuid";    // creates unique IDs
-import fs from "fs";
+import { spawn } from "child_process";
 import path from "path";
+import fs from "fs";
+import { createJob, completeJob, failJob } from "../jobs.js";
 
 const router = express.Router();
 
 export default function processRouter(VIDEOS_DIR, RESULTS_DIR, JAR_PATH) {
 
-  // POST /process/:filename?targetColor=ff0000&threshold=50
-  router.post("/process/:filename", (req, res) => {
-    // Get the video name from the URL (e.g. "ball.mp4")
+router.post("/:filename", (req, res) => {
     const filename = req.params.filename;
-
-    // Get color and threshold from the query (after the ?)
     const targetColor = req.query.targetColor;
     const threshold = req.query.threshold;
 
-    // Make sure the user gave both parameters
+    // Validate query params
     if (!targetColor || !threshold) {
       return res.status(400).json({
         error: "Missing targetColor or threshold query parameter.",
       });
     }
 
-    // Full path to the video file
     const videoPath = path.join(VIDEOS_DIR, filename);
 
-    // Check if that video file exists
+    // Validate video file exists
     if (!fs.existsSync(videoPath)) {
       return res.status(400).json({ error: "Video file not found." });
     }
 
-    // Create a random job ID so we can track this task
-    const jobId = uuidv4();
+    // Create a job object
+    const job = createJob();  // returns { jobId, status: "processing", result: null }
+    const outputPath = path.join(RESULTS_DIR, `${job.jobId}.csv`);
 
-    // Where to save the results
-    const outputPath = path.join(RESULTS_DIR, `${jobId}.csv`);
-
-    // Try to start the Java program
     try {
-      // Run your JAR file:
-      // java -jar yourProgram.jar videoPath outputPath targetColor threshold
+      // Spawn the Java process asynchronously
       const child = spawn("java", [
         "-jar",
         JAR_PATH,
@@ -49,19 +40,28 @@ export default function processRouter(VIDEOS_DIR, RESULTS_DIR, JAR_PATH) {
         outputPath,
         targetColor,
         threshold,
-      ]);
-
-      // Optional: print something when it finishes
-      child.on("close", (code) => {
-        console.log(`Java process finished with code ${code}`);
+      ], {
+        detached: true,
+        stdio: "ignore"
       });
 
-      // Send a response right away (we don’t wait for Java to finish)
-      res.status(202).json({
-        jobId: jobId
+      child.unref(); // allow Node to exit without waiting for the child
+
+      // When Java finishes, mark job done or failed
+      child.on("exit", (code) => {
+        if (code === 0) {
+          completeJob(job.jobId, outputPath);  // CSV is ready
+        } else {
+          failJob(job.jobId, `Java process exited with code ${code}`);
+        }
       });
+
+      // Respond immediately with jobId
+      res.status(202).json({ jobId: job.jobId });
+
     } catch (error) {
       console.error("Error starting job:", error);
+      failJob(job.jobId, error.message);
       res.status(500).json({ error: "Error starting job." });
     }
   });
