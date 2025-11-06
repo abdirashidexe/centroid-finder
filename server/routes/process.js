@@ -19,7 +19,7 @@ router.post("/:filename", (req, res) => {
         error: "Missing targetColor or threshold query parameter.",
       });
     }
-
+  
     const videoPath = path.join(VIDEOS_DIR, filename);
 
     // Validate video file exists
@@ -29,7 +29,7 @@ router.post("/:filename", (req, res) => {
 
     // Create a job object
     const job = createJob();  // returns { jobId, status: "processing", result: null }
-    const outputPath = path.join(RESULTS_DIR, `${job.jobId}.csv`);//***
+    const outputPath = path.join(RESULTS_DIR, `${job.jobId}.csv`); // Assigning the CSV path with a jobId
 
     try {
       // Spawn the Java process asynchronously
@@ -41,7 +41,7 @@ router.post("/:filename", (req, res) => {
         targetColor,
         threshold,
       ], {
-        detached: true,
+        detached: true,   // Having the child run even if node isn't done processing
         stdio: "ignore"
       });
 

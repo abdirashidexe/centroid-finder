@@ -6,7 +6,7 @@ const router = express.Router();
 
 export default () => {
   router.get("/:jobId", (req, res) => {
-    const { jobId } = req.params;
+    const { jobId } = req.params; // Get jobId from URL
     const job = getJob(jobId);
 
     if (!job) {
