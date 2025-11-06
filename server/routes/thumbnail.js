@@ -18,7 +18,7 @@ export default (VIDEOS_DIR, RESULTS_DIR) => {
       fs.mkdirSync(RESULTS_DIR, { recursive: true });
     }
 
-    // Capture first frame using fluent-ffmpeg
+    // Capture first frame using fluent-ffmpeg***
     const command = ffmpeg(videoPath)
       .setFfmpegPath(ffmpegPath) // Use bundled ffmpeg
       .screenshots({
