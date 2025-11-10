@@ -4,7 +4,7 @@ import { getJob } from "../jobs.js";
 const router = express.Router();
 
 export default () => {
-  router.get("/:jobId", (req, res) => {
+  router.get("/:jobId/status", (req, res) => {
     try {
     const { jobId } = req.params;
     const job = getJob(jobId);      // Get JobID from URL
@@ -21,8 +21,9 @@ export default () => {
       } else {
         return res.json({ status: "processing" });
       }
+    // Error if thumbnail generation fails
     } catch (err) {
-      console.error(err);  // optional, logs error for debugging
+      console.error(err);
       return res.status(500).json({ error: "Error fetching job status" });
     }
 

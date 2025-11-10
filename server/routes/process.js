@@ -28,7 +28,7 @@ router.post("/:filename", (req, res) => {
     }
 
     // Create a job object
-    const job = createJob();  // returns { jobId, status: "processing", result: null }
+    const job = createJob();                                       // returns { jobId, status: "processing", result: null }
     const outputPath = path.join(RESULTS_DIR, `${job.jobId}.csv`); // Assigning the CSV path with a jobId
 
     try {
@@ -45,7 +45,7 @@ router.post("/:filename", (req, res) => {
         stdio: "ignore"
       });
 
-      child.unref(); // allow Node to exit without waiting for the child
+      child.unref();      // Allow Node to exit without waiting for the child
 
       // When Java finishes, mark job done or failed
       child.on("exit", (code) => {
