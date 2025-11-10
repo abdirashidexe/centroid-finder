@@ -1,7 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
 import path from "path";
-import fs from "fs";
 import { fileURLToPath } from "url";
 
 // Import routers
@@ -25,10 +24,6 @@ const VIDEOS_DIR = path.resolve(__dirname, "..", process.env.VIDEOS_DIR);
 const RESULTS_DIR = path.resolve(__dirname, "..", process.env.RESULTS_DIR);
 const JAR_PATH = path.resolve(__dirname, "..", process.env.JAR_PATH);
 
-// Debug logs
-console.log("Videos directory:", VIDEOS_DIR);
-console.log("Results directory:", RESULTS_DIR);
-console.log("Java JAR path:", JAR_PATH);
 
 // Mount routers with proper API prefixes
 app.use("/api/videos", videoRoutes(VIDEOS_DIR));          // GET /api/videos
