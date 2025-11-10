@@ -32,7 +32,7 @@ console.log("Java JAR path:", JAR_PATH);
 
 // Mount routers with proper API prefixes
 app.use("/api/videos", videoRoutes(VIDEOS_DIR));          // GET /api/videos
-app.use("/api/thumbnail", thumbnailRouter(VIDEOS_DIR));  // GET /api/thumbnail/:filename
+app.use("/api/thumbnail", thumbnailRouter(VIDEOS_DIR, RESULTS_DIR));
 app.use("/api/process", processRouter(VIDEOS_DIR, RESULTS_DIR, JAR_PATH)); // POST /api/process/:filename
 app.use("/api/process", statusRouter());                 // GET /api/process/:jobId
 

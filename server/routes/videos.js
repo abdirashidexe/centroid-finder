@@ -4,7 +4,7 @@ import fs from "fs";
 const router = express.Router();
 
 export default (VIDEOS_DIR) => {
-  router.get("/videos", (req, res) => {
+  router.get("/", (req, res) => {
     try {
       const files = fs.readdirSync(VIDEOS_DIR);         //reads all files syncronously
       const videoFiles = files.filter(file => file.endsWith(".mp4"));   //filters only mp4 files

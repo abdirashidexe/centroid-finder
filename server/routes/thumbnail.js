@@ -8,7 +8,7 @@ const router = express.Router();
 
 export default (VIDEOS_DIR, RESULTS_DIR) => {
   // Route to capture the first frame of a video
-  router.get("/thumbnail/:videoName", (req, res) => {
+  router.get("/:videoName", (req, res) => {
     const videoName = req.params.videoName; // Get video name from URL
     const videoPath = path.join(VIDEOS_DIR, videoName); // Full path to video
     const framePath = path.join(RESULTS_DIR, `${videoName}-frame.jpg`); // Output frame path
