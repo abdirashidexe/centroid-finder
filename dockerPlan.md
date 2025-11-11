@@ -23,6 +23,10 @@ Our base docker image is: node:20-bullseye
 - Very low chance of binary or runtime issues.
 
 2. How will you make sure that both node and Java can run in your image?
+-   Its node based so that wont be an issue but we will need to install java manually which shouldn't be a big issue
+-   "RUN apt-get update && apt-get install -y openjdk-17-jre-headless"
+
+
 
 3. How will you test your Dockerfile and image?
 
