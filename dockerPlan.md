@@ -5,6 +5,23 @@ Things to consider (can fill out):
 
 1. What base docker image will you use? (Do research online and with AIs!)
 
+Our base docker image is: node:20-bullseye
+
+✅ Pros:
+- Stable, well-supported Linux base.
+- Installing Java is simple: apt-get install openjdk-17-jre.
+- Most Java programs will work 100% reliably.
+- Easier to debug — includes more Linux tools by default.
+
+⚠️ Cons:
+- Bigger (~300–400 MB).
+- Slightly slower to build and push.
+
+🐸 Relevance to Salamander:
+- Best balance between simplicity and reliability.
+- You get Node preinstalled and can easily add Java.
+- Very low chance of binary or runtime issues.
+
 2. How will you make sure that both node and Java can run in your image?
 
 3. How will you test your Dockerfile and image?
