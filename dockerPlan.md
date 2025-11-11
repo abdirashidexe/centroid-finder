@@ -27,7 +27,6 @@ Our base docker image is: node:20-bullseye
 -   "RUN apt-get update && apt-get install -y openjdk-17-jre-headless"
 
 
-
 3. How will you test your Dockerfile and image?
 docker images: To check if the image is installed properly
 docker run -it to check if Node and Java are really working properly
@@ -44,6 +43,16 @@ docker run \
 
 
 4. How will you make sure the endpoints are available outside the image?
+
+We cna make sure the endpoints are available by:
+
+- Adding EXPOSE 3000 to the Dockerfile (since the Express app runs on port 3000).
+- Running the container with docker run -p 3000:3000 to map (or connect) the container’s port 3000 to our local machine’s port 3000.
+- Testing access by visiting http://localhost:3000/api/videos in the browser or Postman.
+
+Reminder in the command "docker run -p 3000:3000", it means:
+EXTERNAL : INTERNAL
+  3000   :   3000
 
 5. How will your code know where to access the video/results directory? Hint: environment variables and volumes. (We'll talk about volumes on Thursday)
 
