@@ -57,4 +57,7 @@ EXTERNAL : INTERNAL
 5. How will your code know where to access the video/results directory? Hint: environment variables and volumes. (We'll talk about volumes on Thursday)
 
 6. How can you make you docker image small, cacheable, and quick to make changes to?
+*node:20-bullseye-slim*
+-   We plan on using the full version of bullseye and we plan on changing it to slim once we see everything is working 
+-   Once we find out the image is reliable we will change it to slim and add any dependecies that we will need later
 
