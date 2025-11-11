@@ -29,6 +29,19 @@ Our base docker image is: node:20-bullseye
 
 
 3. How will you test your Dockerfile and image?
+docker images: To check if the image is installed properly
+docker run -it to check if Node and Java are really working properly
+docker run -p 3000:3000 salamander:latest: to check if the server will respond correctly. 
+
+docker ps -a
+docker logs <container_id>: These will be used to check logs and see which errors pop up.
+
+docker run \
+  -p 3000:3000 \
+  -v "$(pwd)/videos:/videos" \
+  -v "$(pwd)/results:/results" \
+  salamander:latest: This will check if videos are coming up properly and if the csv files are accurrate and getting created properly 
+
 
 4. How will you make sure the endpoints are available outside the image?
 
