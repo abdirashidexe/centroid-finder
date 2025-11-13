@@ -61,3 +61,10 @@ EXTERNAL : INTERNAL
 -   We plan on using the full version of bullseye and we plan on changing it to slim once we see everything is working 
 -   Once we find out the image is reliable we will change it to slim and add any dependecies that we will need later
 
+GOALS/PLANS:
+
+-   Import java in bullseye 
+
+-   Find a way to test focker file to see if everything works properly
+
+-   Use slim if this image is too big
