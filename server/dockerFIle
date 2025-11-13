@@ -1,0 +1,15 @@
+FROM node:20-bullseye
+
+ENV RESULTS_ACCESS=processor/target
+
+ENV VIDEOS_ACCESS=processor\src\main\resources\videos
+
+WORKDIR /server
+
+EXPOSE 3000
+
+COPY . .
+
+RUN npm i
+
+CMD ["npm", "start"]
