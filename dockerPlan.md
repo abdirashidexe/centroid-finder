@@ -65,6 +65,6 @@ GOALS/PLANS:
 
 -   Import java in bullseye 
 
--   Find a way to test focker file to see if everything works properly
+-   Find a way to test docker file to see if everything works properly
 
 -   Use slim if this image is too big
