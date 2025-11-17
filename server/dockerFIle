@@ -1,6 +1,6 @@
 FROM node:20-bullseye
 
-RUN apt-get update && apt-get install -y openjdk-17-jre && apt-get clean
+RUN apt-get update && apt-get install -y openjdk-17-jre ffmpeg && apt-get clean
 
 ENV RESULTS_ACCESS=processor/target
 
@@ -13,5 +13,7 @@ EXPOSE 3000
 COPY . .
 
 RUN npm i
+
+RUN npm install ffmpeg-static
 
 CMD ["npm", "start"]

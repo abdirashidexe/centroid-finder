@@ -22,7 +22,8 @@ const PORT = process.env.PORT || 3000;
 // Resolve paths from .env
 const VIDEOS_DIR = process.env.VIDEOS_DIR || "/videos";
 const RESULTS_DIR = process.env.RESULTS_DIR || "/results";
-const JAR_PATH = process.env.JAR_PATH || path.join(RESULTS_DIR, "centroidfinder-1.0-SNAPSHOT-jar-with-dependencies.jar");
+const JAR_PATH = process.env.JAR_PATH || "/results/centroidfinder-1.0-SNAPSHOT-jar-with-dependencies.jar";
+
 
 // Mount routers with proper API prefixes
 app.use("/api/videos", videoRoutes(VIDEOS_DIR));          // GET /api/videos
