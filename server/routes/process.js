@@ -34,6 +34,7 @@ router.post("/:filename", (req, res) => {
     try {
       // Spawn the Java process asynchronously
       const child = spawn("java", [
+        "-Xmx4g",       // <-- increase heap to 4GB
         "-jar",
         JAR_PATH,
         videoPath,

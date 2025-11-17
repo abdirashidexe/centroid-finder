@@ -1,19 +1,15 @@
-FROM node:20-bullseye
+FROM timbru31/java-node:21-jdk-20
 
-RUN apt-get update && apt-get install -y openjdk-17-jre ffmpeg && apt-get clean
-
-ENV RESULTS_ACCESS=processor/target
-
-ENV VIDEOS_ACCESS=processor/src/main/resources/videos
+RUN apt-get update && apt-get install -y ffmpeg && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /server
 
-EXPOSE 3000
+COPY package*.json ./
+
+RUN npm install
 
 COPY . .
 
-RUN npm i
-
-RUN npm install ffmpeg-static
+EXPOSE 3000
 
 CMD ["npm", "start"]
