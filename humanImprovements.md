@@ -30,8 +30,8 @@ Other testing improvements?
 - None besdies those core ones.
 
 # improving error handling
-What parts of your code are brittle?
-- 
+What parts of your code are brittle? 
+- I would assume parts of the video processing back-end because for bigger videos the run time takes a long time 
 
 Where could you better be using exceptions?
 - 
@@ -47,20 +47,20 @@ Other error handling improvements?
 
 
 # writing documentation
-What portions of your code are missing Javadoc/JSdoc for the methods/classes?
-- 
+What portions of your code are missing Javadoc/JSdoc for the methods/classes? 
+- More javadoc for the back end in the video portions
 
-What documentation could be made clearer or improved?
-- 
+What documentation could be made clearer or improved? 
+- In some of the classes that we didn't implement ourselves, there's not much documentation there (in the backend the files we didn't have to work on)
 
 Are there sections of dead code that are commented out?
 - 
 
-Where would be the most important places to add documentation to make your code easier to read?
-- 
+Where would be the most important places to add documentation to make your code easier to read? 
+- The video processor and summary for the back end. For the front end the index.js and the api files
 
 Other documentation improvements?
-- 
+- Having a document with the location and structure of the folders and files would be good. 
 
 # improving performance (optional)
 What parts of your code / tests / Docker image run particularly slowly?
@@ -95,5 +95,4 @@ Other bug fix improvements?
 # other
 Any other improvements in general you could make?
 - 
-
 
