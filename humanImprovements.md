@@ -27,7 +27,7 @@ Where would be the highest priority places to add new tests?
 2. backend: specifically VideoTestFinder.java
 
 Other testing improvements?
-- None besdies those core ones.
+- None besides those core ones.
 
 # improving error handling
 What parts of your code are brittle? 
@@ -43,12 +43,21 @@ How can you better be resolving/logging/surfacing errors? Hint: almost any place
 - Everything in the api would need to be improved and more user friendly
 
 Other error handling improvements?
-- 
+- N/A
 
 
 # writing documentation
 What portions of your code are missing Javadoc/JSdoc for the methods/classes? 
 - More javadoc for the back end in the video portions
+- Specifically:
+1. CentroidTracker.java
+2. CsvWriter.java
+3. 2 methods in DfsBinaryGroupFinder.java
+4. EuclideanColorDistance.java
+5. FrameAnalyzer.java
+6. FrameData.java
+7. VideoProcessor.java
+8. VideoSummaryApp.java
 
 What documentation could be made clearer or improved? 
 - In some of the classes that we didn't implement ourselves, there's not much documentation there (in the backend the files we didn't have to work on)
@@ -74,25 +83,24 @@ Other performance improvements?
 
 # hardening security (optional)
 What packages / images are out of date / have security issues?
-- 
+- There are currently 0 vulnerabilities after running npm i to check for packages. It's up to date.
 
 Where could you have better input validation in your code to prevent malicious use?
-- 
+- Definitely the front end. It's vulnerable to Cross Site Scripting because we're just getting started on it.
 
 Other security improvements?
-- 
+- N/A
 
 # bug fixes (optional)
 What bugs do you know exist?
-- 
+- When testing with a front-end html, the only route/call that worked was generating a thumbnail image. While this is more of an issue for us to tackle in our front-end class, I think it was worth noting.
 
 What parts of the code do you think might be causing them?
-- 
+- I think the html itself and how it was setup. AI generated it and I didn't give it a thorough review so I wouldn't be surprised. I just needed a quick file of a mock html.
 
 Other bug fix improvements?
-- 
+- N/A
 
 # other
 Any other improvements in general you could make?
-- 
-
+- As of now, I think we covered a good amount in a wide range.
