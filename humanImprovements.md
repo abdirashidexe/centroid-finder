@@ -19,13 +19,15 @@ Other refactoring improvements?
 
 # adding tests
 What portions of your code are untested / only lightly tested?
-- 
+- The frontend is lightly tested compared to the backend.
 
 Where would be the highest priority places to add new tests?
-- 
+- The highest priority places would be:
+1. front end (all the routes using extensive postman testing)
+2. backend: specifically VideoTestFinder.java
 
 Other testing improvements?
-- 
+- None besdies those core ones.
 
 # improving error handling
 What parts of your code are brittle?
