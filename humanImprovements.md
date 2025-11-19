@@ -1,18 +1,18 @@
 # Refactoring code
 What improvements can you make to the design/architecture of your code?
-- 
+- Having the csv files be outputted in one folder rather than having them be created and dumped in the target folder
 
 How can you split up large methods or classes into smaller components?
 - 
 
 Are there unused files/methods that can be removed?
-- 
+- Deleting and finding out why it keeps duplicating package.json, as well as the input and output samples
 
 Where would additional Java interfaces be appropriate?
 - 
 
 How can you make things simpler, more-usable, and easier to maintain?
-- 
+- Creating a controller in our server to handle some of the logic in the server splitting up some things in the route 
 
 Other refactoring improvements?
 - 
