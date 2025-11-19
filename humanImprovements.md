@@ -3,19 +3,19 @@ What improvements can you make to the design/architecture of your code?
 - Having the csv files be outputted in one folder rather than having them be created and dumped in the target folder
 
 How can you split up large methods or classes into smaller components?
-- 
+- As for the processor, I think we did really well on splitting up our methods and classes into smaller components. That was a goal of ours we tried to hit from the get-go.
 
 Are there unused files/methods that can be removed?
 - Deleting and finding out why it keeps duplicating package.json, as well as the input and output samples
 
 Where would additional Java interfaces be appropriate?
-- 
+- Not any that we can think of at the moment.
 
 How can you make things simpler, more-usable, and easier to maintain?
 - Creating a controller in our server to handle some of the logic in the server splitting up some things in the route 
 
 Other refactoring improvements?
-- 
+- Similar to the first improvement with the CSVs, just an overall cleare file system and structure (having a notes folder, adding a controllers folder, etc.)
 
 # adding tests
 What portions of your code are untested / only lightly tested?
