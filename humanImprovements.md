@@ -34,13 +34,13 @@ What parts of your code are brittle?
 - I would assume parts of the video processing back-end because for bigger videos the run time takes a long time 
 
 Where could you better be using exceptions?
-- 
+- Some error handling in the api isn't very specifc on what's wrong 
 
 Where can you better add input validation to check invalid input?
-- 
+- In the backend and adding error handling more user friendly
 
 How can you better be resolving/logging/surfacing errors? Hint: almost any place you're using "throws Exception" or "catch(Exception e)"should likely be improved to specify the specific types of exceptions that might be thrown or caught.
-- 
+- Everything in the api would need to be improved and more user friendly
 
 Other error handling improvements?
 - 
@@ -54,7 +54,7 @@ What documentation could be made clearer or improved?
 - In some of the classes that we didn't implement ourselves, there's not much documentation there (in the backend the files we didn't have to work on)
 
 Are there sections of dead code that are commented out?
-- 
+- test cases that were never used for the video
 
 Where would be the most important places to add documentation to make your code easier to read? 
 - The video processor and summary for the back end. For the front end the index.js and the api files
@@ -64,13 +64,13 @@ Other documentation improvements?
 
 # improving performance (optional)
 What parts of your code / tests / Docker image run particularly slowly?
-- 
+- The video processor in particular is really slow for bigger videos
 
 What speed improvements would most make running / maintaining your code better?
-- 
+- Either using a different video processor or using a lighter version of our docker image if there's one avilable
 
 Other performance improvements?
-- 
+- Looking closely at out video processor file 
 
 # hardening security (optional)
 What packages / images are out of date / have security issues?
