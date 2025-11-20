@@ -3,10 +3,10 @@
 -----------------------------
 ## Refactoring code (required)
 -----------------------------
-### Priority improvement #1: 
+### Priority improvement #1: *IMPROVEMENT #1*
 Make a csvFile container for the csv outputs that the program generates and incorporating better naming conventions for them as well. We can name them based on the video it is.
 
-### Priority improvement #2: 
+### Priority improvement #2: *IMPROVEMENT #2*
 Make server job/process handling robust
 - Files: server/routes/process.js, server/jobs.js, index.js
 - What to do: stop detaching/ignoring child process output; capture stdout/stderr and stream into job logs; persist job state instead of only in-memory (simple file or sqlite/Redis). Make route handlers thin and move heavy work into a service module.
@@ -17,9 +17,9 @@ Make server job/process handling robust
 -----------------------------
 ## Adding tests (required)
 -----------------------------
-### Priority improvement #1: 
+### Priority improvement #1: *IMPROVEMENT #3*
 Unit tests for core algorithm classes. Adding edge cases and more thourough testing to ensure the logic is solid. 
-- Location: EuclideanColorDistance, DfsBinaryGroupFinder, DistanceImageBinarizer, CentroidTracker, CsvWriter]
+- Location: EuclideanColorDistance, DfsBinaryGroupFinder, DistanceImageBinarizer, CentroidTracker, CsvWriter
 
 ### Priority improvement #2: 
 - Files: processor/src/main/java/... (EuclideanColorDistance.java, DfsBinaryGroupFinder.java, DistanceImageBinarizer.java, CsvWriter.java) and server routes (server/routes/*.js)
@@ -30,7 +30,7 @@ Unit tests for core algorithm classes. Adding edge cases and more thourough test
 -----------------------------
 ## Improving error handling (required)
 -----------------------------
-### Priority improvement #1: 
+### Priority improvement #1: *IMPROVEMENT #4*
 - Location [Process.js, jobs.js, index.js]
 - Replacing generic catch-all exceptions with specific exception types and clear messages;
 
@@ -45,10 +45,10 @@ Unit tests for core algorithm classes. Adding edge cases and more thourough test
 -----------------------------
 ## Writing documentation (required)
 -----------------------------
-### Priority improvement #1: 
+### Priority improvement #1: *IMPROVEMENT #5*
 Updating the README.md and deleting the waves and instead  outputting the file and folder structure of our project. Showing us the front end portions and the backend portions as well. Also giving a description of our project and each file purpose.
 
-### Priority improvement #2: 
+### Priority improvement #2: *IMPROVEMENT #6*
 More javadoc for the back end in the video portions
 - Specifically:
 1. CentroidTracker.java
