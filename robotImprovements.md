@@ -1,0 +1,1 @@
+# Please look through this code and identify improvements I could make. Focus on things like refactoring code, fixing bugs, adding tests, improving performance, improving error handling, hardening security, and writing documentation. Please do not write the exact code fixes. Instead give me overall direction on what I should be focusing on.
