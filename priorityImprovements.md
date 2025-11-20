@@ -1,4 +1,4 @@
-# Top Two Improvements per Category
+# Top Two Improvements per Category.
 
 -----------------------------
 ## Refactoring code (required)
