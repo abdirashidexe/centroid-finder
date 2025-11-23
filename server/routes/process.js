@@ -29,8 +29,8 @@ router.post("/:filename", (req, res) => {
 
     // Create a job object
     const job = createJob();                                       // returns { jobId, status: "processing", result: null }
-    const outputPath = path.join(RESULTS_DIR, `${job.jobId}.csv`); // Assigning the CSV path with a jobId
-
+    const base = path.parse(filename).name;     //getting a readable filename for the output csv file
+    const outputPath = path.join(RESULTS_DIR, `${base}-${job.jobId}.csv`);   //assigning job id and readable name  
     try {
       // Spawn the Java process asynchronously
       const child = spawn("java", [
