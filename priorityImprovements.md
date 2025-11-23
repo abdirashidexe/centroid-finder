@@ -7,10 +7,11 @@
 Make a csvFile container for the csv outputs that the program generates and incorporating better naming conventions for them as well. We can name them based on the video it is.
 
 ### Priority improvement #2: *IMPROVEMENT #2*
-Make server job/process handling robust
+- Adding a controller to make our code cleaner (add to refactoring)
 - Files: server/routes/process.js, server/jobs.js, index.js
-- What to do: stop detaching/ignoring child process output; capture stdout/stderr and stream into job logs; persist job state instead of only in-memory (simple file or sqlite/Redis). Make route handlers thin and move heavy work into a service module.
-- Why: enables reliable retries, debugging, and recovery on restart.
+- Why: 
+-- Routing → defining the URL endpoints
+-- Logic → the actual work (reading videos, generating thumbnails, spawning Java, etc.)
 - Category: refactoring code
 
 
