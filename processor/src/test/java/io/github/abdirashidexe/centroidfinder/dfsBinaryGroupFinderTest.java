@@ -14,7 +14,7 @@ public class dfsBinaryGroupFinderTest {
             {1, 0, 0},
             {0, 0, 0}
         };
-        boolean[][] visited = new boolean[2][2];
+        boolean[][] visited = new boolean[image.length][image[0].length];
         List<int[]> newConnectedPixels = new  ArrayList<>();
 
         List<int[]> result = DfsBinaryGroupFinder.returnGroupList(image, visited, 0, 0, newConnectedPixels);
@@ -55,6 +55,11 @@ public class dfsBinaryGroupFinderTest {
         List<int[]> newConnectedPixels = new  ArrayList<>();
 
         List<int[]> result = DfsBinaryGroupFinder.returnGroupList(image, visited, 0, 0, newConnectedPixels);
+
+        newConnectedPixels.sort((a, b) -> {
+            if (a[0] != b[0]) return Integer.compare(a[0], b[0]); // row
+            return Integer.compare(a[1], b[1]); // column
+        });
 
         // ✅ Assertions
         assertNotNull(result);
@@ -315,11 +320,11 @@ public class dfsBinaryGroupFinderTest {
             new int[]{1, 0}
         );
 
-        // ✅ FIX: Use element-wise comparison instead of assertEquals on lists of arrays
-        assertEquals(expectedCoords.size(), result.size());
-        for (int i = 0; i < expectedCoords.size(); i++) {
-            assertArrayEquals(expectedCoords.get(i), result.get(i));
+        for (int[] expected : expectedCoords) {
+            boolean found = result.stream().anyMatch(r -> r[0] == expected[0] && r[1] == expected[1]);
+            assertTrue(found, "Expected coordinate not found: " + expected[0] + "," + expected[1]);
         }
+        assertEquals(expectedCoords.size(), result.size());
     }
 
     // *** TEST: 20 ***
@@ -346,4 +351,92 @@ public class dfsBinaryGroupFinderTest {
         }
     }
 
+    // *** TEST: 21 ***
+    @Test
+    public void testNonRectangularArrayThrowsException() {
+        int[][] image = {
+            {1, 0, 1},
+            {1, 0} // shorter row
+        };
+
+        DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> finder.findConnectedGroups(image));
+    }
+
+    // *** TEST: 22 ***
+    @Test
+    public void testAllZerosImageFindsNoGroups() {
+        int[][] image = {
+            {0, 0},
+            {0, 0}
+        };
+
+        DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
+        List<Group> groups = finder.findConnectedGroups(image);
+
+        assertTrue(groups.isEmpty());
+    }
+
+    // *** TEST: 23 ***
+    @Test
+    public void testLargeSingleGroup5x5Block() {
+        int[][] image = {
+            {1,1,1,1,1},
+            {1,1,1,1,1},
+            {1,1,1,1,1},
+            {1,1,1,1,1},
+            {1,1,1,1,1}
+        };
+
+        DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
+        List<Group> groups = finder.findConnectedGroups(image);
+
+        assertEquals(1, groups.size());
+        assertEquals(25, groups.get(0).size());
+
+        // centroid of full 5x5 block is (2,2)
+        assertEquals(2, groups.get(0).centroid().x());
+        assertEquals(2, groups.get(0).centroid().y());
+    }
+
+    // *** TEST: 24 ***
+    @Test
+    public void testVisitedMarksOnlyOnes() {
+        int[][] image = {
+            {1,0},
+            {1,0}
+        };
+
+        boolean[][] visited = new boolean[2][2];
+        List<int[]> newConnectedPixels = new ArrayList<>();
+
+        DfsBinaryGroupFinder.returnGroupList(image, visited, 0, 0, newConnectedPixels);
+
+        assertTrue(visited[0][0]);
+        assertTrue(visited[1][0]);
+        assertFalse(visited[0][1]);
+        assertFalse(visited[1][1]);
+    }
+    // *** TEST: 25 ***
+    @Test
+    public void testCentroidOfLShape() {
+        int[][] image = {
+            {1,0,0},
+            {1,0,0},
+            {1,1,1}
+        };
+
+        DfsBinaryGroupFinder finder = new DfsBinaryGroupFinder();
+        List<Group> groups = finder.findConnectedGroups(image);
+
+        assertEquals(1, groups.size());
+
+        Group g = groups.get(0);
+        // Pixels: (0,0),(1,0),(2,0),(2,1),(2,2)
+        // x avg = (0+1+2+2+2)/5 = 1 (int div)
+        // y avg = (0+0+0+1+2)/5 = 0 (int div)
+
+        assertEquals(1, g.centroid().x());
+        assertEquals(0, g.centroid().y());
+    }
 }

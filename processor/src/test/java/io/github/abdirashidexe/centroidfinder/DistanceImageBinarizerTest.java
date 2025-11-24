@@ -197,4 +197,83 @@ public class DistanceImageBinarizerTest {
         assertEquals(1, result[0].length);
     }
     
+    @Test
+    public void testToBinaryArray_coordinateOrientation() {
+        // Make a 2x2 image with distinct pixels:
+        // (0,0)=white, (1,0)=black
+        // (0,1)=black, (1,1)=white
+        int targetColor = 0xFFFFFF;
+        int threshold = 1;
+
+        ColorDistanceFinder fake = (c1, c2) -> (c1 == targetColor ? 0 : 100);
+
+        DistanceImageBinarizer binarizer = new DistanceImageBinarizer(fake, targetColor, threshold);
+
+        BufferedImage img = new BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB);
+        img.setRGB(0, 0, 0xFFFFFF);
+        img.setRGB(1, 0, 0x000000);
+        img.setRGB(0, 1, 0x000000);
+        img.setRGB(1, 1, 0xFFFFFF);
+
+        int[][] out = binarizer.toBinaryArray(img);
+
+        assertEquals(1, out[0][0]);
+        assertEquals(0, out[1][0]);
+        assertEquals(0, out[0][1]);
+        assertEquals(1, out[1][1]);
+    }
+    @Test
+    public void testToBufferedImage_pixelValuesAreCorrect() {
+        DistanceImageBinarizer binarizer = new DistanceImageBinarizer(mockDistanceFinder, 0, 0);
+
+        int[][] arr = {
+            {1, 0},
+            {0, 1}
+        };
+
+        BufferedImage img = binarizer.toBufferedImage(arr);
+
+        // top-left  (1)
+        assertEquals(0xFFFFFF, img.getRGB(0, 0) & 0xFFFFFF);
+
+        // top-right (0)
+        assertEquals(0x000000, img.getRGB(1, 0) & 0xFFFFFF);
+
+        // bottom-left (0)
+        assertEquals(0x000000, img.getRGB(0, 1) & 0xFFFFFF);
+
+        // bottom-right (1)
+        assertEquals(0xFFFFFF, img.getRGB(1, 1) & 0xFFFFFF);
+    }
+    @Test
+    public void testToBufferedImage_throwsOnJaggedArray() {
+        DistanceImageBinarizer binarizer = new DistanceImageBinarizer(mockDistanceFinder, 0, 0);
+
+        int[][] jagged = {
+            {1, 0},
+            {1}     // shorter row → illegal
+        };
+
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            binarizer.toBufferedImage(jagged);
+        });
+    }
+    @Test
+    public void testDistanceFinderCalledExpectedNumberOfTimes() {
+        final int[] calls = {0};
+
+        ColorDistanceFinder countingFinder = (a, b) -> {
+            calls[0]++;
+            return 0;
+        };
+
+        BufferedImage img = new BufferedImage(4, 3, BufferedImage.TYPE_INT_RGB);
+
+        DistanceImageBinarizer binarizer =
+            new DistanceImageBinarizer(countingFinder, 0x000000, 10);
+
+        binarizer.toBinaryArray(img);
+
+        assertEquals(12, calls[0]); // 4 × 3
+    }
 }
