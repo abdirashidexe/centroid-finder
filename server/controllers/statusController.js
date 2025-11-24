@@ -1,13 +1,9 @@
-import express from "express";
 import { getJob } from "../jobs.js";
 
-const router = express.Router();
-
-export default () => {
-  router.get("/:jobId/status", (req, res) => {
+export function getJobStatus(req, res) {
     try {
-    const { jobId } = req.params;
-    const job = getJob(jobId);      // Get JobID from URL
+      const { jobId } = req.params;
+      const job = getJob(jobId);
 
       if (!job) {
         return res.status(404).json({ 
@@ -40,6 +36,5 @@ export default () => {
         error: "Unexpected server error"  // Error message for client
       });
     }
-  });
-return router;
-};
+  };
+
