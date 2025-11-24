@@ -1,6 +1,6 @@
 # centroid-finder
 
-..
+....
 
 ## *DO THIS FIRST* Wave 0: AI Rules 
 AI is *NOT ALLOWED* for generating implementations of the classes.
