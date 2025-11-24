@@ -19,9 +19,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Resolve paths from .env
-const VIDEOS_DIR = process.env.VIDEOS_DIR;
-const RESULTS_DIR = process.env.RESULTS_DIR;
-const JAR_PATH = process.env.JAR_PATH;
+const VIDEOS_DIR = path.join(__dirname, process.env.VIDEOS_DIR);
+const RESULTS_DIR = path.join(__dirname, process.env.RESULTS_DIR);
+const JAR_PATH = path.join(__dirname, process.env.JAR_PATH);
 
 // Validating environment variables stopping server if paths are missing
 if (!VIDEOS_DIR || !RESULTS_DIR || !JAR_PATH) {
