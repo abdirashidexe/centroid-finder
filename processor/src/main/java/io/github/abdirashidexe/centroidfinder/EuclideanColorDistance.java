@@ -39,7 +39,12 @@ public class EuclideanColorDistance implements ColorDistanceFinder {
         return Math.sqrt(Math.pow((r1 - r2),2) + Math.pow((g1 - g2),2) + Math.pow((b1 - b2),2));
     }
 
-    // helper method for converting a hex int into R, G, and B components (so: 0x00FF00 --> 0, 255, 0)
+    /**
+     * Converts a 24-bit RGB integer into a list of [red, green, blue].
+     *
+     * @param hexValue RGB color as 0xRRGGBB
+     * @return list containing red, green, blue components
+     */
     public List<Integer> convertHexToRGB(int hexValue) {
 
         int color = hexValue;                 // ex: 0xa24d9f
