@@ -18,13 +18,9 @@ public class FrameAnalyzer {
      * @param threshold allowable distance from target color to consider a pixel "white"
      */
     public FrameAnalyzer(int targetColor, int threshold) {
-        // Make a color distance calculator (Euclidean formula)
+        // Initialize components for analyzing frames: color distance, binarization, and group finding
         ColorDistanceFinder distanceFinder = new EuclideanColorDistance();
-
-        // Make a binarizer (turns the image into black/white)
         ImageBinarizer binarizer = new DistanceImageBinarizer(distanceFinder, targetColor, threshold);
-
-        // Make a group finder (finds connected white pixels)
         this.groupFinder = new BinarizingImageGroupFinder(binarizer, new DfsBinaryGroupFinder());
     }
 
@@ -44,18 +40,17 @@ public class FrameAnalyzer {
         }
 
         // Find the biggest group (most white pixels)
-        Group largest = null;  // Start with no largest group yet
+        Group largest = null;
 
-        for (Group g : groups) {       // Go through each group in the list
+        for (Group g : groups) {
             if (largest == null || g.size() > largest.size()) {
-                largest = g;           // Update largest if this group is bigger
+                largest = g;           // Keep largest group so far
             }
         }
 
         if (largest == null) {
-            throw new RuntimeException("No groups found!"); // Handle empty list
+            throw new RuntimeException("No groups found!"); // Should not happen if list is non-empty
         }
-
 
         // Return the centroid (the (x, y) average of all white pixels)
         return largest.centroid();

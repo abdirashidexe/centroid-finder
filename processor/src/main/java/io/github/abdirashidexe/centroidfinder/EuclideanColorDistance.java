@@ -25,7 +25,7 @@ public class EuclideanColorDistance implements ColorDistanceFinder {
     @Override
     public double distance(int colorA, int colorB) {
 
-        // ex: 0xa24d9f --> 154, 77, 162
+        // Example: 0xa24d9f → [154, 77, 162] (R, G, B)
         List<Integer> colorA_List = convertHexToRGB(colorA);
         int r1 = colorA_List.get(0); 
         int g1 = colorA_List.get(1);
@@ -50,7 +50,7 @@ public class EuclideanColorDistance implements ColorDistanceFinder {
         int color = hexValue;                 // ex: 0xa24d9f
         int red = (color & 0xFF0000) >> 16;   // ex: 159
         int green = (color & 0x00FF00) >> 8;  // ex: 77
-        int blue = color & 0x0000FF;          // 162
+        int blue = color & 0x0000FF;          // ex: 162
         
         List<Integer> rgbList = new ArrayList<>();
 

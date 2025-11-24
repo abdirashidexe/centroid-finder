@@ -49,7 +49,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         int cols = image[0].length;
         boolean[][] visited = new boolean[rows][cols];
         
-        //map to hold the coordinates of each group | key: group index, value: list of coordinates for that group in array form
+        // Map to hold the coordinates of each group | key: group index, value: list of coordinates for that group in array form
         HashMap<Integer, List<int[]>> coordinateMap = new HashMap<>();      
 
         for (int r = 0; r < rows; r++)
@@ -65,8 +65,6 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
                 }
             }
         }
-
-        // {0, [[1,0], 1,1], [0,1]}
 
         List<Group> officalListOfGroups = new ArrayList<Group>();
         for (int group : coordinateMap.keySet()) {
@@ -139,12 +137,12 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         int yTotals = 0;
         int numOfPixelsInGroup = groupList.size();
 
-        // add x coordinates
+        // Sum all x coordinates of pixels in group
         for (int[] coordinates : groupList) {
             xTotals += coordinates[0];
         }
 
-        // add y coordinates
+        // Sum all y coordinates of pixels in group
         for (int[] coordinates : groupList) {
             yTotals += coordinates[1];
         }

@@ -38,7 +38,7 @@ public class CentroidTracker {
     public List<FrameData> processVideo() throws Exception {
         List<FrameData> data = new ArrayList<>();
         List<BufferedImage> frames = videoProcessor.extractFrames();
-        double fps = 30.0; // assume 30 frames per second
+        double fps = 30.0; // assumed frame rate (frames per second)
         int frameNumber = 0;
 
         for (BufferedImage frame : frames) {
