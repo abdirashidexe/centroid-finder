@@ -4,9 +4,19 @@ import java.awt.image.BufferedImage;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Analyzes a single frame to find connected white pixel groups and returns
+ * the centroid of the largest group. Used to track target objects in video frames.
+ */
 public class FrameAnalyzer {
     private final ImageGroupFinder groupFinder;
 
+    /**
+     * Constructs a FrameAnalyzer with a target color and threshold for binarization.
+     *
+     * @param targetColor the color to track (as 0xRRGGBB)
+     * @param threshold allowable distance from target color to consider a pixel "white"
+     */
     public FrameAnalyzer(int targetColor, int threshold) {
         // Make a color distance calculator (Euclidean formula)
         ColorDistanceFinder distanceFinder = new EuclideanColorDistance();
@@ -18,7 +28,12 @@ public class FrameAnalyzer {
         this.groupFinder = new BinarizingImageGroupFinder(binarizer, new DfsBinaryGroupFinder());
     }
 
-    // Analyze a single image (frame)
+    /**
+     * Analyzes a BufferedImage and returns the centroid of the largest detected group.
+     *
+     * @param frame the image frame to analyze
+     * @return Coordinate of the largest group's centroid, or (-1, -1) if none found
+     */
     public Coordinate analyzeFrame(BufferedImage frame) {
         // Find all groups in this frame
         List<Group> groups = groupFinder.findConnectedGroups(frame);
