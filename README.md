@@ -1,70 +1,266 @@
 # centroid-finder
 
-....
+# Goal
+# Description:
 
-## *DO THIS FIRST* Wave 0: AI Rules 
-AI is *NOT ALLOWED* for generating implementations of the classes.
-AI is allowed for helping you make test cases.
+This project allows the user to insert a video and a target color (for the moving object). The processor extracts the centroids locations from video frames. This writes -per-frame- CSV summaries for the user that shows the time and coordinates of the targeted moving object.
 
-Don't have it just create the tests mindlessly for you though! Make sure you're actively involved in making the tests.
 
-DO NOT MIX HUMAN AND AI COMMITS.
-EVERY COMMIT THAT USES AI MUST START WITH THE COMMIT MESSAGE "AI Used" AND IT MUST ONLY CREATE/ALTER TEST FILES
+# Overview:
+Processor: (java) Reads video frames, computes centroid, and writes CSV
+Server: - Server (Node): accepts jobs / uploads, spawns the Java processor per-job, stores results and job state, returns job/result URLs to frontend.
 
-For this wave, please have each partner make a commit below with their username acknowledging that they understand the rules, according to the following format:
 
-"I, YOUR_GITHUB_USERNAME, understand that AI is ONLY to be used for tests, and that every commit that I use AI for must start with 'AI Used'"
 
-I, abdirashidexe, understand that AI is ONLY to be used for tests, and that every commit that I use AI for must start with 'AI Used'
-I, ShawnN003, understand that AI is ONLY to be used for tests, and that every commit that I use AI for must start with 'AI Used'
-## Wave 1: Understand
-Read through ImageSummaryApp in detail with your partner. Understand what each part does. This will involve looking through and reading ALL of the other classes records and interfaces. This will take a long time, but it is worth it! Do not skimp on this part, you will regret it! Also look at the sampleInput and sampleOutput folders to understand what comes in and what goes out.
 
-As you read through the files, take notes in notes.md to help you and your partner understand. Make frequent commits to your notes.
 
-## Wave 2: Implement DfsBinaryGroupFinder
-This class takes in a binary image array and finds the connected groups. It will look very similar in many ways to the explorer problem you did for DFS! You'll need to understand the Group record to do this well.
+## File Structure ##
+C:\centroid-finder\
+├─ .gitignore
+├─ README.md
+├─ PLAN.md
+├─ robotImprovements.md
+├─ priorityImprovements.md
+├─ .env                       
+├─ .github\
+│  └─ workflows\
+│     └─ run-tests.yml
+├─ server\
+│  ├─ .env                     
+│  ├─ index.js
+│  ├─ package.json
+│  ├─ dockerFIle                
+│  ├─ jobs.js
+│  ├─ routes\
+│  │  └─ process.js
+│  ├─ lib\
+│  │  └─ (helpers like runner/logger)
+│  └─ uploads\ or results\     
+├─ processor\
+│  ├─ pom.xml
+│  ├─ target\
+│  │  ├─ centroidfinder-1.0-SNAPSHOT-jar-with-dependencies.jar
+│  │  └─ results\               (RESULTS_DIR)
+│  └─ src\
+│     ├─ main\
+│     │  ├─ java\
+│     │  │  └─ io\github\abdirashidexe\centroidfinder\
+│     │  │     ├─ VideoProcessor.java
+│     │  │     ├─ CsvWriter.java
+│     │  │     ├─ FrameAnalyzer.java
+│     │  │     ├─ FrameData.java
+│     │  │     ├─ DfsBinaryGroupFinder.java
+│     │  │     ├─ EuclideanColorDistance.java
+│     │  │     ├─ CentroidTracker.java
+│     │  │     └─ experiment\
+│     │  │        └─ VideoExperiment.java
+│     │  └─ resources\
+│     │     └─ videos\
+│     │        └─ ball.mp4
+│     └─ test\                   (JUnit tests go here)
+├─ sampleInput\                  (optional fixtures)
+└─ scripts\ or tools\            (build/run helpers)
 
-Consider STARTING with the unit tests. Remember, you can use AI to help with the unit tests but NOT the implementation. Any AI commit must start with the message "AI Used"
 
-MAKE SURE YOU MAKE THOROUGH UNIT TESTS.
 
-## Wave 3: Implement EuclideanColorDistance
-Implement EuclideanColorDistance. You may consider adding a helper method for converting a hex int into R, G, and B components.
 
-Again, consider starting with unit tests. You may consider using WolframAlpha to help you get correct expected values.
 
-MAKE SURE YOU MAKE THOROUGH UNIT TESTS.
+# ***** Commands ***** #
 
-## Wave 4: Implement DistanceImageBinarizer
-To do this you will need to research `java.awt.image.BufferedImage`. In particular, make sure to understand `getRGB` and `setRGB`. When creating a new image, you can use the below to start the instance:
 
-```
-new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-```
+# **Docker** 
 
-Note that a lot of this class will be calling methods in BinaryGroupFinder and ColorDistanceFinder!
+# 1. Build Docker image
+docker build -t centroid-finder .
 
-MAKE SURE YOU MAKE THOROUGH UNIT TESTS. Consider asking the AI to teach you about mocks and fakes in unit testing and how they may be helpful here.
+# 2. Run container
+docker run -p 3000:3000 \
+  -v "<path>/videos:/videos" \
+  -v "<path>/results:/results" \
+  -e VIDEOS_ACCESS=/videos \
+  -e RESULTS_ACCESS=/results \
+  centroid-finder
 
-HINT: `getRGB` returns a 32-bit AARRGGBB color (includes alpha channel). However, ColorDistanceFinder expects the colors to come in RRGGBB format (no alpha channel (most significant 8 bits set to 0)). What can you do to make this conversion happen?
 
-## Wave 5: Implement BinarizingImageGroupFinder
-This implementation will be relatively short! It will mostly be calling methods in ImageBinarizer and BinaryGroupFinder.
 
-MAKE SURE YOU MAKE THOROUGH UNIT TESTS. Consider asking the AI to teach you about mocks and fakes in unit testing and how they may be helpful here. I recommend NOT using any external library other than JUnit. If the AI wants to use another external library, consider asking it not to and to make stubs instead.
+# ** MVN **
+mvn test
 
-## Wave 6: Validation
-To validate your code is working, make sure you're in the centroid-finder directory and run the below command:
+mvn clean compile
 
-```
-javac -cp lib/junit-platform-console-standalone-1.12.0.jar src/*.java && java -cp src ImageSummaryApp sampleInput/squares.jpg FFA200 164
-```
+mvn package
 
-This will compile your files and run the main method in ImageSummaryApp against the sample image with a target color of orange and a threshold of 164. It should binarized.png and groups.csv which should match the corresponding files in the sampleOutput directory.
 
-Once you have confirmed it is working, clean up your code, make sure it's committed and pushed, and make a PR to submit. Great job!
 
-## Optional Wave 7: Enhancements?
-If you want to, you can make a new branch to start experimenting. See if you can come up with a better color distance method (hint: look up perceptual color spaces). See if you can make your code more efficient or mor suited to spotting salamanders! Experiment with other test files. PLEASE MAKE SURE THIS IS IN A SEPARATE BRANCH FROM YOUR SUBMISSION.
+
+# API
+
+## List Available Videos
+
+**GET** `/api/videos`
+
+**Description:**  
+Return a list of all video files in the mounted directory, available publicly at /videos/VIDEO_NAME.
+
+**Responses:**
+
+- **200 OK**
+
+  ```json
+  ["intro.mp4", "demo.mov"]
+  ```
+
+- **500 Internal Server Error**
+
+  ```json
+  {
+    "error": "Error reading video directory"
+  }
+  ```
+
+---
+
+## Generate Thumbnail
+
+**GET** `/thumbnail/{filename}`
+
+**Path Parameters:**
+
+- `filename` (string, required) — Name of the video file (e.g. `demo.mov`)
+
+**Description:**  
+Extract and return the first frame from the video as a JPEG.
+
+**Responses:**
+
+- **200 OK**  
+  JPEG binary data  
+  _Content-Type: image/jpeg_
+
+
+- **500 Internal Server Error**
+
+  ```json
+  {
+    "error": "Error generating thumbnail"
+  }
+  ```
+
+---
+
+## Start Video Processing Job
+
+**POST** `/process/{filename}`  
+ `?targetColor=<hex>&threshold=<int>`
+
+**Path Parameters:**
+
+- `filename` (string, required) — Name of the video file to process (e.g. `intro.mp4`)
+
+**Query Parameters:**
+
+- `targetColor` (string, required) — Hex color code to match (e.g. `ff0000`)
+- `threshold`   (number, required) — Match threshold (e.g. `120`)
+
+**Description:**  
+Kick off an asynchronous job to analyze the video. Returns a `jobId` you can poll.
+
+**Responses:**
+
+- **202 Accepted**
+
+  ```json
+  {
+    "jobId": "123e4567-e89b-12d3-a456-426614174000"
+  }
+  ```
+
+- **400 Bad Request**
+
+  ```json
+  {
+    "error": "Missing targetColor or threshold query parameter."
+  }
+  ```
+
+
+- **500 Internal Server Error**
+
+  ```json
+  {
+    "error": "Error starting job"
+  }
+  ```
+
+---
+
+## Get Processing Job Status
+
+**GET** `/process/{jobId}/status`
+
+**Path Parameters:**
+
+- `jobId` (string, required) — ID returned by the **POST** `/process` call
+
+**Description:**  
+Check whether the job is still running, has completed, or failed.
+
+**Responses:**
+
+- **200 OK** (processing)
+
+  ```json
+  {
+    "status": "processing"
+  }
+  ```
+
+- **200 OK** (done)
+
+  ```json
+  {
+    "status": "done",
+    "result": "/results/intro.mp4.csv"
+  }
+  ```
+
+- **200 OK** (error)
+
+  ```json
+  {
+    "status": "error",
+    "error": "Error processing video: Unexpected ffmpeg error"
+  }
+  ```
+
+- **404 Not Found**
+
+  ```json
+  {
+    "error": "Job ID not found"
+  }
+  ```
+
+- **500 Internal Server Error**
+
+  ```json
+  {
+    "error": "Error fetching job status"
+  }
+  ```
+
+
+# Requirements:
+- Java 17+
+
+- Maven 3.9+
+
+- Node.js 18+
+
+- Docker 
+
+# Authors:
+
+- Shawn 
+- Abdi 
 
