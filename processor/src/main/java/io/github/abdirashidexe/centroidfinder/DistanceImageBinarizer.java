@@ -13,11 +13,6 @@ import java.awt.image.BufferedImage;
  * The color distance is computed using a provided ColorDistanceFinder, which defines how to compare two colors numerically.
  * The targetColor is represented as a 24-bit RGB integer in the form 0xRRGGBB.
  * 
- * 
- * 
- * ----***REMINDER: a lot of this class will be calling methods in BinaryGroupFinder and ColorDistanceFinder***----
- * 
- * 
  */
 public class DistanceImageBinarizer implements ImageBinarizer {
     private final ColorDistanceFinder distanceFinder;
@@ -53,16 +48,16 @@ public class DistanceImageBinarizer implements ImageBinarizer {
      */
     @Override
     public int[][] toBinaryArray(BufferedImage image) {        
-        int[][] binaryArray = new int[image.getWidth()][image.getHeight()];     //Creating a new binary array that will have the height and width of the image
+        int[][] binaryArray = new int[image.getWidth()][image.getHeight()]; // binary array to store pixel states
         
         for(int y = 0; y < image.getHeight(); y++)
         {
             for(int x = 0; x < image.getWidth(); x++)
             {
-                int imgPixel = image.getRGB(x, y) & 0xFFFFFF;      //The current image pixel 
-                double distance = distanceFinder.distance(imgPixel, targetColor);      //the distance between the image and the target color (the reference color)
+                int imgPixel = image.getRGB(x, y) & 0xFFFFFF;      // The current image pixel 
+                double distance = distanceFinder.distance(imgPixel, targetColor);      // The distance between the image and the target color (the reference color)
 
-                if(distance < threshold)       //if the distance is less than the threshold then the array would be 1 otherwise it will be zero
+                if(distance < threshold)       // mark pixel as white if within threshold
                 {
                     binaryArray[x][y] = 1;
                 } else {
@@ -84,8 +79,7 @@ public class DistanceImageBinarizer implements ImageBinarizer {
     @Override
     public BufferedImage toBufferedImage(int[][] image) {
 
-        // When creating a new image, this will start the instance:
-        BufferedImage myImage = new BufferedImage(image.length, image[0].length, BufferedImage.TYPE_INT_RGB);
+        BufferedImage myImage = new BufferedImage(image.length, image[0].length, BufferedImage.TYPE_INT_RGB); // create output BufferedImage
 
         for(int x = 0; x < image.length; x++)
         {

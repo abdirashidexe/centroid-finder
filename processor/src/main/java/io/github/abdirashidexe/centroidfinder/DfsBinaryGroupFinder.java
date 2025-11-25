@@ -32,6 +32,8 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
     * 
     * @param image a rectangular 2D array containing only 1s and 0s
     * @return the found groups of connected pixels in descending order
+    * @throws NullPointerException if the array or any subarray is null
+    * @throws IllegalArgumentException if the array is invalid
     */
     @Override
     public List<Group> findConnectedGroups(int[][] image) {    
@@ -47,7 +49,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         int cols = image[0].length;
         boolean[][] visited = new boolean[rows][cols];
         
-        //map to hold the coordinates of each group | key: group index, value: list of coordinates for that group in array form
+        // Map to hold the coordinates of each group | key: group index, value: list of coordinates for that group in array form
         HashMap<Integer, List<int[]>> coordinateMap = new HashMap<>();      
 
         for (int r = 0; r < rows; r++)
@@ -63,8 +65,6 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
                 }
             }
         }
-
-        // {0, [[1,0], 1,1], [0,1]}
 
         List<Group> officalListOfGroups = new ArrayList<Group>();
         for (int group : coordinateMap.keySet()) {
@@ -83,23 +83,16 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         return officalListOfGroups;
     }
 
-    /* [0,1,0,0],
-       [1,1,0,0],
-       [0,0,1,0],
-       [0,0,1,1] */
-
     /**
-     * Group method is supposed to get all the coordinates of the group that we want and return them after getting the 
-     * centroid and size. 
-     * 
-     * -------------------------------------------GOALS------------------------------------------------
-     * Find a way to obtain the size and centroid 
-     * 
-     * Find a way to traverse through the pixels and get only the connected connected pixels 
-     * ------------------------------------------------------------------------------------------------
-     * (Maybe using another helper method that will take in the coordinates given and convert the centroid)
-     * 
-     * (Study different dfs code to find how to traverse )
+     * Returns a list of all coordinates in a connected group starting at (r, c)
+     * using depth-first search (DFS). Marks visited pixels to avoid repeats.
+     *
+     * @param image the binary image (2D array of 0s and 1s)
+     * @param visited boolean array tracking visited pixels
+     * @param r starting row
+     * @param c starting column
+     * @param newConnectedPixels list to collect coordinates of connected pixels
+     * @return list of pixel coordinates in the connected group
      */
     public static List<int[]> returnGroupList(int[][] image, boolean[][] visited, int r, int c, List<int[]> newConnectedPixels) {
         int rows = image.length;
@@ -132,18 +125,24 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         return newConnectedPixels;
     }
 
+    /**
+     * Calculates the centroid of a group of pixels.
+     *
+     * @param groupList list of pixel coordinates in the group
+     * @return array with centroid [x, y] using integer division
+     */
     public static int[] calculateCentroid(List<int[]> groupList) {
 
         int xTotals = 0;
         int yTotals = 0;
         int numOfPixelsInGroup = groupList.size();
 
-        // add x coordinates
+        // Sum all x coordinates of pixels in group
         for (int[] coordinates : groupList) {
             xTotals += coordinates[0];
         }
 
-        // add y coordinates
+        // Sum all y coordinates of pixels in group
         for (int[] coordinates : groupList) {
             yTotals += coordinates[1];
         }
