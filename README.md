@@ -1,6 +1,5 @@
 # centroid-finder
 
-# Goal
 # Description:
 
 This project allows the user to insert a video and a target color (for the moving object). The processor extracts the centroids locations from video frames. This writes -per-frame- CSV summaries for the user that shows the time and coordinates of the targeted moving object.
@@ -11,9 +10,6 @@ Processor: (java) Reads video frames, computes centroid, and writes CSV
 Server: - Server (Node): accepts jobs / uploads, spawns the Java processor per-job, stores results and job state, returns job/result URLs to frontend.
 
 
-
-
-
 ## File Structure ##
 C:\centroid-finder\
 ├─ .gitignore
@@ -21,26 +17,26 @@ C:\centroid-finder\
 ├─ PLAN.md
 ├─ robotImprovements.md
 ├─ priorityImprovements.md
-├─ .env                       
+├─ .env
 ├─ .github\
 │  └─ workflows\
 │     └─ run-tests.yml
 ├─ server\
-│  ├─ .env                     
+│  ├─ .env
 │  ├─ index.js
 │  ├─ package.json
-│  ├─ dockerFIle                
+│  ├─ Dockerfile
 │  ├─ jobs.js
 │  ├─ routes\
 │  │  └─ process.js
 │  ├─ lib\
 │  │  └─ (helpers like runner/logger)
-│  └─ uploads\ or results\     
+│  └─ uploads\ or results\
 ├─ processor\
 │  ├─ pom.xml
 │  ├─ target\
 │  │  ├─ centroidfinder-1.0-SNAPSHOT-jar-with-dependencies.jar
-│  │  └─ results\               (RESULTS_DIR)
+│  │  └─ results\   (RESULTS_DIR)
 │  └─ src\
 │     ├─ main\
 │     │  ├─ java\
@@ -57,18 +53,16 @@ C:\centroid-finder\
 │     │  └─ resources\
 │     │     └─ videos\
 │     │        └─ ball.mp4
-│     └─ test\                   (JUnit tests go here)
-├─ sampleInput\                  (optional fixtures)
-└─ scripts\ or tools\            (build/run helpers)
-
-
+│     └─ test\   (JUnit tests)
+├─ sampleInput\     (optional fixtures)
+└─ scripts\ or tools\  (build/run helpers)
 
 
 
 # ***** Commands ***** #
 
 
-# **Docker** 
+# Docker
 
 # 1. Build Docker image
 docker build -t centroid-finder .
@@ -83,7 +77,7 @@ docker run -p 3000:3000 \
 
 
 
-# ** MVN **
+# Maven 
 mvn test
 
 mvn clean compile
