@@ -9,6 +9,10 @@ export function getThumbnail(VIDEOS_DIR, RESULTS_DIR) {
     const videoPath = path.join(VIDEOS_DIR, videoName);
     const framePath = path.join(RESULTS_DIR, `${videoName}-frame.jpg`);
 
+    if (!fs.existsSync(videoPath)) {
+      return res.status(404).json({ error: "Video not found." });
+    }
+
     if (!fs.existsSync(RESULTS_DIR)) {
       fs.mkdirSync(RESULTS_DIR, { recursive: true });
     }
@@ -25,8 +29,15 @@ export function getThumbnail(VIDEOS_DIR, RESULTS_DIR) {
     command.on("end", () => res.sendFile(framePath));
 
     command.on("error", (err) => {
-      console.error("FFmpeg error:", err);
-      res.status(500).send("Error generating thumbnail");
+      console.error("FFmpeg error:", err.message);
+
+      if (err.message.includes("No such file"))
+        return res.status(404).send("Input video not found.");
+
+      if (err.message.includes("not found") || err.message.includes("ffmpeg"))
+        return res.status(500).send("FFmpeg binary not available.");
+
+      res.status(500).send("Failed to generate thumbnail.");
     });
   };
 }
