@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import cors from "cors";
 
 // Import routers
 import videoRoutes from "./routes/videos.js";
@@ -18,6 +19,8 @@ dotenv.config({ path: path.join(__dirname, "../.env") });
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+app.use(cors());
+app.use(express.json());
 
 // Resolve paths from .env
 const VIDEOS_DIR = process.env.VIDEOS_DIR || "/videos";
